@@ -1,11 +1,17 @@
-import { UpdateProfileRequest } from "../../Core/Entities/UserProfile"
+import { GetUserProfileRequest, GetUserProfileResponse } from "../../Core/Entities/Service/GetUserProfile";
+import { UpdateUserProfileRequest, UpdateUserProfileResponse } from "../../Core/Entities/Service/UpdateUserProfile";
+import AxiosServer from "../Http/AxiosServer"
 
 export default function ProfileService () {
-  const getProfile = () => {
-
+  const getProfile = async (params: GetUserProfileRequest) => {
+    const response = await AxiosServer.get<GetUserProfileResponse>(`/profile/${params.id}`);
+    return response.data;
   }
-  const updateProfile = (newProfile: UpdateProfileRequest) => {
-
+  const updateProfile = async (newProfile: UpdateUserProfileRequest) => {
+    const response = await AxiosServer.put<UpdateUserProfileResponse>(`/profile/${newProfile.id}`, {
+      body: newProfile,
+    });
+    return response.data;
   }
   return {
     getProfile,
