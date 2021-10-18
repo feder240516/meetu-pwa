@@ -34,6 +34,8 @@ class Map extends Component<IProps, IState> {
   campusWidth: number;
   campusHeight: number;
 
+  needsResize: boolean;
+
   constructor(props: IProps) {
     super(props);
     this.canvasParentRef = createRef();
@@ -43,6 +45,8 @@ class Map extends Component<IProps, IState> {
 
     this.campusWidth = 900 * 1;
     this.campusHeight = 681 * 1;
+
+    this.needsResize = false;
 
     this.state = {
       positions: {},
@@ -73,8 +77,15 @@ class Map extends Component<IProps, IState> {
     this.canvasParent = this.canvasParentRef.current;
 
     this.canvasMap = this.canvasMapRef.current;
-    window.addEventListener("resize", (e : any) => this.onResize(e))
+    window.addEventListener("resize", (e : any) => this.onResize(e));
     this.onResize(null);
+
+    /*setInterval(() => {
+      if(this.needsResize){
+        this.onResize(null);
+        this.needsResize = false;
+      }
+    }, 1000)*/
 
     this.canvasMap.addEventListener("touchstart", this.onTouchStart);
     this.canvasMap.addEventListener("touchmove", this.onTouchMove);
