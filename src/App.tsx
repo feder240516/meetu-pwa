@@ -1,13 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-import Login from './UI/pages/Login/Login';
+import React, { Component } from 'react';
+import './App.scss';
 
-function App() {
-  return (
-    <div className="App">
-      <Login />
-    </div>
-  );
+import Map from './UI/components/Map/Map';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Map />
+      </div>
+    );
+  }
 }
 
 export default App;
