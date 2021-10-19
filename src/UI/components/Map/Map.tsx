@@ -1,8 +1,8 @@
 import React, { Component, createRef } from 'react';
 import "./Map.scss";
 
-const campusPanningOffsetX: number = 100;
-const campusPanningOffsetY: number = 100;
+const campusPanningOffsetX: number = 300;
+const campusPanningOffsetY: number = 400;
 
 interface IProps {
 }
@@ -89,9 +89,11 @@ class Map extends Component<IProps, IState> {
 
     const { campusOffsetX, campusOffsetY } = this.state;
     initialPositions["campus"] = {x: campusOffsetX, y: campusOffsetY};
-    initialPositions["avatar"] = {x: 130, y: 80};
+    initialPositions["avatar"] = {x: 130, y: 0};
 
     this.setState({ positions: initialPositions });
+
+    this.centerAvatar()
 
     window.requestAnimationFrame(this.update);
   }
@@ -103,6 +105,22 @@ class Map extends Component<IProps, IState> {
     let campusOffsetX = this.canvasMap.width / 2 - this.campusWidth / 2;
     let campusOffsetY = this.canvasMap.height / 2 - this.campusHeight / 2;
     this.setState({ campusOffsetX, campusOffsetY })
+  }
+
+  centerAvatar = () => {
+    const { positions } = this.state;
+    const {x, y} = positions["avatar"];
+
+    let offsetX = x - this.canvasMap.width / 2 + (this.images["avatar"].width* 0.65) / 2;
+    let offsetY = y - this.canvasMap.height / 2 + (this.images["avatar"].height* 0.65) / 2;
+
+    const newPositions = {...this.state.positions};
+    Object.keys(newPositions).forEach(id => {
+      newPositions[id].x -= offsetX;
+      newPositions[id].y -= offsetY;
+    })
+
+    this.setState({ positions: newPositions });
   }
 
   update = () => {
