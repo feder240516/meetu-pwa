@@ -1,0 +1,7 @@
+@use "../../styles/global.scss";
+
+.card-component {
+  background-color: global.$primary-color;
+  padding: 12px;
+  margin: 12px;
+}
