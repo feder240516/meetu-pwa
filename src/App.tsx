@@ -3,7 +3,7 @@ import './App.scss';
 
 import { BrowserRouter as Router, Route} from "react-router-dom";
 
-import Map from './UI/components/Map/Map';
+import Map from './UI/pages/Map/Map';
 import BottomNav from './UI/components/BottomNav/BottomNav';
 
 class App extends Component {
