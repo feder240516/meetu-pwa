@@ -43,8 +43,8 @@ class Map extends Component<IProps, IState> {
 
     this.images = {};
 
-    this.campusWidth = 900 * 1;
-    this.campusHeight = 681 * 1;
+    this.campusWidth = 900 * 1.2;
+    this.campusHeight = 681 * 1.2;
 
     this.needsResize = false;
 
@@ -68,7 +68,6 @@ class Map extends Component<IProps, IState> {
     image.onload = () => resolve(image);
     image.src = imagePath;
   })
-  
 
   componentDidMount = async () => {
     this.images["campus"] = await this.loadImage("/images/unisabana-map.png");
@@ -79,13 +78,6 @@ class Map extends Component<IProps, IState> {
     this.canvasMap = this.canvasMapRef.current;
     window.addEventListener("resize", (e : any) => this.onResize(e));
     this.onResize(null);
-
-    /*setInterval(() => {
-      if(this.needsResize){
-        this.onResize(null);
-        this.needsResize = false;
-      }
-    }, 1000)*/
 
     this.canvasMap.addEventListener("touchstart", this.onTouchStart);
     this.canvasMap.addEventListener("touchmove", this.onTouchMove);
