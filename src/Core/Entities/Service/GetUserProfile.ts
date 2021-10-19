@@ -5,6 +5,5 @@ export interface GetUserProfileRequest {
 }
 
 export interface GetUserProfileResponse {
-  status: number;
   data: UserProfile[];
 }

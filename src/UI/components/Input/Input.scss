@@ -1,0 +1,20 @@
+@use "../../styles/global.scss";
+
+.input-wrapper {
+  .input-label {
+    font-size: 12px;
+  }
+  .input-component {
+    background-color: #151C53cc;
+    border: 0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: global.$text-white;
+    height: 32px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 100%;
+  }
+}

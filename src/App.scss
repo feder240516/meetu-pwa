@@ -1,3 +1,14 @@
+@use "./UI/styles/global.scss";
+
+body {
+  background-color: global.$primary-color;
+  background-image: url("./assets/Background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
 .App {
   
 }
