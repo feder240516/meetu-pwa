@@ -1,0 +1,27 @@
+@use '../../styles/global.scss';
+
+.event-card-component {
+  background-color: #151C53CC;
+  box-shadow: global.$shadow-1, global.$shadow-2;
+  display:flex;
+  .event-card-image-wrapper {
+    flex-shrink: 0;
+    overflow: hidden;
+    width: 96px;
+    .event-card-image {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+  .event-card-content {
+    padding: 16px;
+    .event-card-title {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .event-card-text {
+      font-size: 14px;
+    }
+  }
+}

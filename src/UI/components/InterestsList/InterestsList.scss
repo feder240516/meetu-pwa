@@ -1,0 +1,17 @@
+.InterestsList {
+    list-style: none;
+    height: 450px;
+    overflow: auto;
+
+    ul {
+        width: 100%;
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    
+        justify-content: space-evenly;
+        align-items: flex-start;
+    }
+}

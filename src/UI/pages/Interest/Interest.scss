@@ -1,0 +1,60 @@
+.Interest {
+    h1 {
+        position: absolute;
+        top: 5%;
+        letter-spacing: 2px;
+        font-size: 2.25rem;
+
+        padding: 0px 12px;
+    }
+
+    .circle {
+        position: absolute;
+        top: 5%;
+        right: 12px;
+        background: white;
+
+        padding: 1rem;
+        border-radius: 50px;
+        z-index: 2;
+        
+        img {
+            display: block;
+            width: 60px;
+        }
+    }
+
+    .InterestsContainer {
+        position: absolute;
+        top: 12%;
+
+        box-sizing: border-box;
+
+        padding: 0rem 12px;
+        width: 100%;
+
+        .-Inner {
+            height: 100%;
+            background: #050A31;
+
+            padding-bottom: 1rem;
+
+            .inner-txt {
+                display: block;
+                padding: 1.5rem 1rem;
+            }
+        }
+    }
+
+    .interest-btns {
+        box-sizing: border-box;
+
+        position: absolute;
+        top: 80%;
+        width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 50px;
+    }
+}

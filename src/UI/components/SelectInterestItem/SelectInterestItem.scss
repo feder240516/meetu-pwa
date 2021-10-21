@@ -1,0 +1,55 @@
+.SelectInterestItem {
+    display: block;
+    list-style: none;
+
+    margin: 0rem 0.5rem;
+    margin-bottom: 1.5rem;
+
+    .-RadioItem {
+        .-RadioInput {
+            position: absolute;
+            visibility: hidden;
+        }
+        
+        .-InterestItem {
+            padding: 0.5rem;
+        }
+
+        .-RadioInput + .-InterestItem {
+           
+        }
+
+        .-RadioInput:checked + .-InterestItem {
+            /*background: #a6a7a9;
+            filter: contrast(100%) brightness(110%);*/
+        }
+    }
+
+
+    
+    .circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 50%;
+        background: #EB3AA7;
+
+        padding: 1rem;
+
+        img {
+            display: block;
+        }
+    }
+
+    span {
+        display: block;
+        color: white;
+        text-align: center;
+        margin-top: 0.5rem;
+        padding-bottom: 0.5rem;
+
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+}
