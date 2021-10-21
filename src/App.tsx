@@ -7,6 +7,8 @@ import Map from './UI/pages/Map/Map';
 import Interests from './UI/pages/Interests/Interests';
 import Interest from './UI/pages/Interest/Interest';
 import SelectInterest from './UI/pages/SelectInterest/SelectInterest';
+import Groups from './UI/pages/Groups/Groups';
+import YourGroups from './UI/pages/YourGroups/YourGroups';
 import BottomNav from './UI/components/BottomNav/BottomNav';
 import ViewEvents from './UI/pages/Events/ViewEvents/ViewEvents';
 
@@ -73,10 +75,20 @@ class App extends Component {
 
         <Route
             exact
-            path="/select-interests"
+            path="/select-interest"
             render={(props) => (
               <React.Fragment>
                 <SelectInterest />
+              </React.Fragment>
+            )}
+          />
+
+        <Route
+            exact
+            path="/your-groups"
+            render={(props) => (
+              <React.Fragment>
+                <YourGroups />
               </React.Fragment>
             )}
           />
@@ -86,7 +98,7 @@ class App extends Component {
             path="/groups"
             render={(props) => (
               <React.Fragment>
-                Groups
+                <Groups />
               </React.Fragment>
             )}
           />
