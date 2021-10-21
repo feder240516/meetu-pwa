@@ -4,6 +4,11 @@ import Card from "../../components/Card/Card";
 import Input from "../../components/Input/Input";
 import "./Login.scss";
 // import { Card, CardContent, CardHeader } from "@mui/material";
+const routes = [
+  {
+      to: "/login"
+  }
+]
 
 export default function Login() {
   const { getProfile, updateProfile } = ProfileService();

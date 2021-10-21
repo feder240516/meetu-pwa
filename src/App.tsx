@@ -8,6 +8,9 @@ import Interests from './UI/pages/Interests/Interests';
 import Interest from './UI/pages/Interest/Interest';
 import SelectInterest from './UI/pages/SelectInterest/SelectInterest';
 import BottomNav from './UI/components/BottomNav/BottomNav';
+import Login from './UI/pages/Login/Login';
+import Welcome from './UI/pages/Welcome/Welcome';
+import CreateAvatar from './UI/pages/CreateAvatar/CreateAvatar';
 import ViewEvents from './UI/pages/Events/ViewEvents/ViewEvents';
 
 const interests = [
@@ -32,6 +35,33 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <Route
+            exact
+            path="/welcome"
+            render={(props) => (
+              <React.Fragment>
+                <Welcome />
+              </React.Fragment>
+            )}
+          />
+        <Route
+            exact
+            path="/login"
+            render={(props) => (
+              <React.Fragment>
+                <Login />
+              </React.Fragment>
+            )}
+          />
+          <Route
+            exact
+            path="/createavatar"
+            render={(props) => (
+              <React.Fragment>
+                <CreateAvatar />
+              </React.Fragment>
+            )}
+          />
         <div>
           <Route
             exact
@@ -101,6 +131,7 @@ class App extends Component {
           />
           <BottomNav />
         </div>
+        
       </Router>
     );
   }
