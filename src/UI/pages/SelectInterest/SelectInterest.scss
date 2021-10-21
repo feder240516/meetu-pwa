@@ -1,0 +1,40 @@
+.SelectInterest {
+
+    .InterestsContainer {
+        position: absolute;
+        top: 15%;
+
+        box-sizing: border-box;
+
+        padding: 0rem 12px;
+        width: 100%;
+
+        .-Inner {
+            height: 100%;
+            background: #050A31;
+
+            padding-bottom: 1rem;
+
+            .inner-txt {
+                display: block;
+                text-align: center;
+                padding: 1.5rem 0rem;
+
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .interest-btns {
+        box-sizing: border-box;
+
+        position: absolute;
+        top: 80%;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        padding: 0px 50px;
+    }
+}
