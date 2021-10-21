@@ -7,6 +7,7 @@ import Map from './UI/pages/Map/Map';
 import BottomNav from './UI/components/BottomNav/BottomNav';
 import Login from './UI/pages/Login/Login';
 import Welcome from './UI/pages/Welcome/Welcome';
+import CreateAvatar from './UI/pages/CreateAvatar/CreateAvatar';
 
 class App extends Component {
   render() {
@@ -27,6 +28,15 @@ class App extends Component {
             render={(props) => (
               <React.Fragment>
                 <Login />
+              </React.Fragment>
+            )}
+          />
+          <Route
+            exact
+            path="/createavatar"
+            render={(props) => (
+              <React.Fragment>
+                <CreateAvatar />
               </React.Fragment>
             )}
           />
