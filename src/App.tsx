@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 
 import Map from './UI/pages/Map/Map';
 import BottomNav from './UI/components/BottomNav/BottomNav';
+import ViewEvents from './UI/pages/Events/ViewEvents/ViewEvents';
 
 class App extends Component {
   render() {
@@ -25,7 +26,7 @@ class App extends Component {
             path="/events"
             render={(props) => (
               <React.Fragment>
-                Events
+                <ViewEvents />
               </React.Fragment>
             )}
           />
