@@ -3,12 +3,17 @@ $secondary-color: #52BBC4;
 $accent-color: #eb3aa7;
 $secondary-accent-color: #4D1568;
 $text-color: #151C53;
+$input-background-color: #151C53cc;
 $text-white: #ffffff;
 $map-background-color: #7f9b6c;
+$subtle-bg-color: rgba(0,0,0,0.25);
 
 $shadow-1: 0px 0px 2px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.24);
 $shadow-2: 4px 4px 4px rgba(0, 0, 0, 0.25);
 $shadow-3: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 4px 5px rgba(0, 0, 0, 0.12), 0px 1px 10px rgba(0, 0, 0, 0.2);
+$shadow-4: 0px 8px 10px rgba(0, 0, 0, 0.14), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 5px 5px rgba(0, 0, 0, 0.2);
+
+$main-font: 'Montserrat', sans-serif;
 
 // @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
@@ -32,7 +37,7 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: $main-font;
 	font-size: 100%;
 	font-weight: normal;
 	color: $text-white;

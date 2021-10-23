@@ -12,6 +12,7 @@ import Login from './UI/pages/Login/Login';
 import Welcome from './UI/pages/Welcome/Welcome';
 import CreateAvatar from './UI/pages/CreateAvatar/CreateAvatar';
 import ViewEvents from './UI/pages/Events/ViewEvents/ViewEvents';
+import CreateEvent from './UI/pages/Events/CreateEvent/CreateEvent';
 
 const interests = [
   {
@@ -78,6 +79,15 @@ class App extends Component {
             render={(props) => (
               <React.Fragment>
                 <ViewEvents />
+              </React.Fragment>
+            )}
+          />
+          <Route
+            exact
+            path="/events/create"
+            render={(props) => (
+              <React.Fragment>
+                <CreateEvent />
               </React.Fragment>
             )}
           />
