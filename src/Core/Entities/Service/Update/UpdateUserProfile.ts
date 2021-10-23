@@ -1,4 +1,4 @@
-import UserProfile from "../UserProfile";
+import UserProfile from "../../UserProfile";
 
 export interface UpdateUserProfileRequest {
   id: number;

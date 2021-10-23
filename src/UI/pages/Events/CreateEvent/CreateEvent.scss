@@ -34,6 +34,10 @@
       color: global.$text-white;
       font-family: global.$main-font;
       padding:12px;
+      &:disabled {
+        background-color: global.$disabled-button-color;
+        color: global.$text-disabled;
+      }
     }
   }
 }

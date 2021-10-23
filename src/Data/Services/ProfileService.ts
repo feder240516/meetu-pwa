@@ -1,5 +1,5 @@
-import { GetUserProfileRequest, GetUserProfileResponse } from "../../Core/Entities/Service/GetUserProfile";
-import { UpdateUserProfileRequest, UpdateUserProfileResponse } from "../../Core/Entities/Service/UpdateUserProfile";
+import { GetUserProfileRequest, GetUserProfileResponse } from "../../Core/Entities/Service/Read/GetUserProfile";
+import { UpdateUserProfileRequest, UpdateUserProfileResponse } from "../../Core/Entities/Service/Update/UpdateUserProfile";
 import AxiosServer from "../Http/AxiosServer"
 
 export default function ProfileService () {

@@ -12,13 +12,15 @@ import './DateModal.scss';
 
 interface IProps {
   id: string;
+  onChange?: (value: Date | null) => void;
 }
 
-const DateModal: React.FC<IProps> = ({ id }) => {
+const DateModal: React.FC<IProps> = ({ id, onChange }) => {
   const [value, setValue] = useState<Date | null>(null);
 
   const handleChange = (newValue: Date | null) => {
     setValue(newValue);
+    if (onChange) { onChange(newValue); }
   };
 
   return (
