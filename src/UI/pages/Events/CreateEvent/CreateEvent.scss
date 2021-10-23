@@ -1,0 +1,39 @@
+@use '../../../styles/global.scss';
+
+.create-event-page {
+  .create-event__header-wrapper {
+    .create-event__header {
+      margin: 18px 72px 18px 18px;
+    }
+  }
+  .create-event__content {
+    position: relative;
+    .create-event__decorative-avatar {
+      box-shadow: chocolate;
+      position: absolute;
+      right: 0;
+      top: -70px;
+    }
+    .create-event__place-and-time-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+      justify-content: space-between;
+      .flex-grow-1 {
+        flex-grow: 1;
+      }
+    }
+  }
+  .create-event__create-button-wrapper {
+    display: flex;
+    justify-content: center;
+    .create-event__create-button {
+      background-color: global.$accent-color;
+      border: 0;
+      border-radius: 72px;
+      color: global.$text-white;
+      font-family: global.$main-font;
+      padding:12px;
+    }
+  }
+}
