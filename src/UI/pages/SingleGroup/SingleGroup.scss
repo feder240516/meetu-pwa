@@ -1,0 +1,73 @@
+.SingleGroup {
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    height: 90vh;
+    background: #050A31;
+
+    .GroupImg {
+        position: relative;
+        height: 200px;
+
+        img {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+
+            height: 35px;
+        }
+    }
+
+    .SingleGroupContainer {
+        display: flex;
+        flex-direction: column;
+
+        box-sizing: border-box;
+
+        padding: 0px 15px;
+
+        h1 {
+            padding: 1rem;
+
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+
+        }
+
+        .-highlighted {
+            border-bottom: 2px solid white;
+        }
+
+        p {
+            text-align: justify;
+            margin-top: 1rem;
+        }
+
+        button {
+            margin: 0 auto;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+
+            li {
+                display: flex;
+                align-items: center;
+
+                margin-bottom: 0.5rem;
+
+                img {
+                    height: 45px;
+                    min-width: 45px;
+
+                    border: none;
+                }
+                span {
+                    padding-left: 0.25rem;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+@use '../../styles/global.scss';
+
+.MuiModal-root {
+  .MuiDialog-container {
+    .MuiPaper-root {
+      background-color: global.$primary-color;
+      color: global.$text-white;
+      .MuiTypography-root {
+        color: global.$text-white;
+      }
+      .MuiDialogContent-root {
+        span {
+          color: global.$text-white;
+        }
+        
+      }
+      .PrivatePickersToolbar-root {
+        .MuiButton-root {
+          .Mui-selected {
+            color: global.$accent-color;
+          }
+        }
+      }
+    }
+  }
+}

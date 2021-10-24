@@ -1,0 +1,37 @@
+@use '../../styles/global.scss';
+
+.select-wrapper {
+  margin-bottom: 24px;
+  .select-label {
+    margin-bottom: 12px;
+  }
+  .select-component {
+    .select-component__control {
+      background-color: global.$input-background-color;
+      border: 0;
+      box-shadow: global.$shadow-4;
+      .select-component__value-container {
+        .select-component__single-value {
+          color: global.$text-white;
+        }
+      }
+      .select-component__indicators {
+        .select-component__indicator-separator {
+          display: none;
+        }
+      }
+    }
+    .select-component__menu {
+      background-color: global.$text-color;
+      border: 0;
+      color: global.$text-white;
+      .select-component__menu-list {
+        .select-component__option {
+          &.select-component__option--is-focused {
+            background-color: global.$text-color;
+          }
+        }
+      }
+    }
+  }
+}
