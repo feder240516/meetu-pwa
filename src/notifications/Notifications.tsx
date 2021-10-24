@@ -8,7 +8,7 @@ const Notifications = (props: any) => {
     useEffect(() => {
       let data;
       async function tokenFunc() {
-        data = await getToken(setTokenFound);
+        data = await getToken(/*setTokenFound*/);
         if (data) {
           console.log("Token is", data);
 
