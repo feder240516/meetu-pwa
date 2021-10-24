@@ -7,6 +7,10 @@ import Map from './UI/pages/Map/Map';
 import Interests from './UI/pages/Interests/Interests';
 import Interest from './UI/pages/Interest/Interest';
 import SelectInterest from './UI/pages/SelectInterest/SelectInterest';
+import Groups from './UI/pages/Groups/Groups';
+import YourGroups from './UI/pages/YourGroups/YourGroups';
+import SingleGroup from './UI/pages/SingleGroup/SingleGroup';
+import SingleYourGroup from './UI/pages/SingleYourGroup/SingleYourGroup';
 import BottomNav from './UI/components/BottomNav/BottomNav';
 import Login from './UI/pages/Login/Login';
 import Welcome from './UI/pages/Welcome/Welcome';
@@ -29,7 +33,52 @@ const interests = [
     id: 2,
     name:"Gym",
     src:"/images/Shirt.png",
-  }
+  },
+  {
+    id: 0,
+    name:"Gym",
+    src:"/images/Dumbbell.png",
+  },
+  {
+    id: 1,
+    name:"Tennis",
+    src:"/images/Ball.png",
+  },
+  {
+    id: 2,
+    name:"Gym",
+    src:"/images/Shirt.png",
+  },
+  {
+    id: 0,
+    name:"Gym",
+    src:"/images/Dumbbell.png",
+  },
+  {
+    id: 1,
+    name:"Tennis",
+    src:"/images/Ball.png",
+  },
+  {
+    id: 2,
+    name:"Gym",
+    src:"/images/Shirt.png",
+  },
+  {
+    id: 0,
+    name:"Gym",
+    src:"/images/Dumbbell.png",
+  },
+  {
+    id: 1,
+    name:"Tennis",
+    src:"/images/Ball.png",
+  },
+  {
+    id: 2,
+    name:"Gym",
+    src:"/images/Shirt.png",
+  },
 ]
 
 class App extends Component {
@@ -113,10 +162,30 @@ class App extends Component {
 
         <Route
             exact
-            path="/select-interests"
+            path="/select-interest"
             render={(props) => (
               <React.Fragment>
                 <SelectInterest />
+              </React.Fragment>
+            )}
+          />
+
+        <Route
+            exact
+            path="/your-groups"
+            render={(props) => (
+              <React.Fragment>
+                <YourGroups />
+              </React.Fragment>
+            )}
+          />
+
+          <Route
+            exact
+            path="/your-groups/:idGroup"
+            render={(props) => (
+              <React.Fragment>
+                <SingleYourGroup />
               </React.Fragment>
             )}
           />
@@ -126,10 +195,21 @@ class App extends Component {
             path="/groups"
             render={(props) => (
               <React.Fragment>
-                Groups
+                <Groups />
               </React.Fragment>
             )}
           />
+
+          <Route
+            exact
+            path="/groups/:idGroup"
+            render={(props) => (
+              <React.Fragment>
+                <SingleGroup />
+              </React.Fragment>
+            )}
+          />
+
           <Route
             exact
             path="/profile"

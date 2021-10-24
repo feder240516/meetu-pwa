@@ -1,0 +1,82 @@
+.SingleYourGroup {
+    overflow-y: auto;
+    box-sizing: border-box;
+    
+    background: #050A31;
+    
+    height: 90vh;
+    width: 100%;
+
+    .SingleYourGroupContainer {
+        display: flex;
+        flex-direction: column;
+
+        box-sizing: border-box;
+        padding: 0px 15px;
+        
+        .-title {
+            display: flex;
+            align-items: center;
+
+            margin-top: 1rem;
+            border-bottom: 2px solid white;
+
+            a {
+                img {
+                    height: 30px;
+                }
+            }
+
+            h1 {
+                padding: 1rem;
+
+                font-weight: 700;
+                font-size: 1.75rem;
+                letter-spacing: 1px;
+            }
+        }
+
+        p {
+            text-align: justify;
+            margin: 1rem 0rem;
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+
+            padding: 1rem 0.75rem;
+            text-align: start;
+            margin-bottom: 1rem;
+
+            border: none;
+            outline: none;
+
+            background: #151C53;
+
+            img {
+                height: 26px;
+            }
+
+            span {
+                padding-top: 0.2rem;
+                padding-left: 1rem;
+
+                color: black;
+                font-size: 1.4rem;
+
+                color: white;
+            }
+        }
+
+        .-red {
+            margin-top: 4rem;
+            width: 100%;
+            background: #AB0000;
+        }
+        
+    }
+
+        
+    
+}
