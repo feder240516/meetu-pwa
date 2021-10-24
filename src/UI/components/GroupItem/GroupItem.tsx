@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const GroupItem = (props: any) => {
     return (
         <li className="GroupItem">
-            <Link to="/" className="GroupLink">
+            <Link to={props.isFromGroups ? `/groups/${props.id}`:`/your-groups/${props.id}`} className="GroupLink">
                 <div className="-GroupImg" 
                     style={{
                         backgroundImage: `url('${props.src}')`,
@@ -16,7 +16,7 @@ const GroupItem = (props: any) => {
                     {props.isPending ? <span>Pending of acceptance</span> : null}
                 </div>
                 <div className="-GroupContent">
-                    <span className="GroupLabel">{props.label}</span>
+                    <span className="Grouptitle">{props.title}</span>
                     <div className="avatar-faces">
                     <img 
                         style={{marginLeft: "0px"}}

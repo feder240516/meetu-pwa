@@ -11,10 +11,12 @@ const GroupList = (props: any) => {
                     props.groups.map((group: any, i: number) => 
                         <GroupItem 
                             key={i}
-                            label={group.label}
+                            id={group.id}
+                            title={group.title}
                             src={group.src}
                             member_count={group.member_count}
                             isPending={group.isPending}
+                            isFromGroups={props.isFromGroups}
                         />
                     )
                 }

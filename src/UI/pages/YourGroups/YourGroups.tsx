@@ -1,36 +1,54 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "./YourGroups.scss";
+
+import { Link } from "react-router-dom";
 
 import GroupList from '../../components/GroupList/GroupList';
 
 const groups = [
     {
-        label: "Robocup",
+        id: 0,
+        title: "Robocup",
         src: "/images/robocup.png",
         member_count: 12,
-        isPending: true
+        isPending: true,
+        description: "No description."
     },
     {
-        label: "Football",
+        id: 1,
+        title: "Football",
         src: "/images/football.jpg",
         member_count: 27,
-        isPending: true
+        isPending: true,
+        description: "No description."
     },
     {
-        label: "Basketball",
+        id: 2,
+        title: "Basketball",
         src: "/images/football.jpg",
         member_count: 8,
-        isPending: true
+        isPending: true,
+        description: "No description."
     }
 ]
 
 const YourGroups = (props: any) => {
+    //const [groups, setGroups] = useState([]);
+    //const getGroups = async () => {}
+
     return (
         <div className="YourGroups">
-            <h1>Your groups</h1>
+            <div className="GroupsTab">
+                <Link to="/groups">
+                    <h1>Groups</h1>
+                </Link>
+                <Link to="/your-groups">
+                    <h1 className="selected">Your Groups</h1>
+                </Link>
+            </div>
 
             <div className="GroupsContainer">
-                <GroupList groups={groups}/>
+                <GroupList groups={groups} isFromGroups={false}/>
             </div>
         </div>
     );
