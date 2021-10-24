@@ -223,7 +223,7 @@ class App extends Component {
                 <SingleYourGroup />
               </React.Fragment>
             )}
-          />
+          /> 
 
           <Route
             exact
