@@ -20,7 +20,7 @@ import CreateEvent from './UI/pages/Events/CreateEvent/CreateEvent';
 
 import ReactNotificationComponent from './notifications/ReactNotificationComponent';
 import Notifications from './notifications/Notifications';
-import { onMessageListener } from './firebaseInit';
+import { onMessageListener, getToken } from './firebaseInit';
 
 const interests = [
   {
@@ -88,13 +88,18 @@ const interests = [
 class App extends Component {
   state = {
     show: false,
+    token: "",
     notification: {
       title: "",
       body: ""
     }
   } 
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    const token = await getToken();
+    console.log("The token is: ", token)
+    this.setState({token});
+
     onMessageListener()
       .then((payload: any) => {
         this.setState({
@@ -119,7 +124,7 @@ class App extends Component {
               body={this.state.notification.body}
             /> : null
         }
-        <Notifications />
+        {/*<Notifications />*/}
         <Route
             exact
             path="/welcome"
@@ -251,7 +256,10 @@ class App extends Component {
             render={(props) => (
               <React.Fragment>
                 Profile
-              </React.Fragment>
+                <div style={{marginTop:"1rem", padding: "0rem 1rem"}}>
+                <input readOnly style={{display: "block", width: "100%", height: "50px"}} type="text" value={this.state.token}/>
+                </div>
+             </React.Fragment>
             )}
           />
           <BottomNav />
