@@ -8,7 +8,7 @@ import RoundButton from '../../components/RoundButton/RoundButton';
 const groups = [
     {
         id: 0,
-        label: "Robocup",
+        title: "Robocup",
         src: "/images/robocup.png",
         member_count: 12,
         isPending: false,
@@ -16,7 +16,7 @@ const groups = [
     },
     {
         id: 1,
-        label: "Football",
+        title: "Football",
         src: "/images/football.jpg",
         member_count: 27,
         isPending: false,
@@ -24,7 +24,7 @@ const groups = [
     },
     {
         id: 2,
-        label: "Basketball",
+        title: "Basketball",
         src: "/images/football.jpg",
         member_count: 8,
         isPending: false,
@@ -53,10 +53,10 @@ const SingleGroup = (props: any) => {
                 </Link>
             </div>
             <div className="SingleGroupContainer">
-                <h1 className="-highlighted">{group ? group.label : ""}</h1>
+                <h1 className="-highlighted">{group ? group.title : ""}</h1>
                 <p>{group ? group.description : ""}</p>
                 <RoundButton 
-                    label="Ask to join"
+                    title="Ask to join"
                     backgroundColor="#EB3AA7"
                     height="0.75rem"
                     width="120px"
