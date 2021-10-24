@@ -92,14 +92,18 @@ class App extends Component {
     notification: {
       title: "",
       body: ""
-    }
+    },
+    errMessage: "",
   } 
 
   componentDidMount = async () => {
-    const token = await getToken();
-    console.log("The token is: ", token)
-    this.setState({token});
-
+    try{
+      const token = await getToken();
+      console.log("The token is: ", token)
+      this.setState({token});
+    } catch(err){
+      this.setState({errMessage: err});
+    }
     onMessageListener()
       .then((payload: any) => {
         this.setState({
@@ -258,6 +262,7 @@ class App extends Component {
                 Profile
                 <div style={{marginTop:"1rem", padding: "0rem 1rem"}}>
                 <input readOnly style={{display: "block", width: "100%", height: "50px"}} type="text" value={this.state.token}/>
+                <div>{this.state.errMessage}</div>
                 </div>
              </React.Fragment>
             )}
