@@ -259,10 +259,11 @@ class App extends Component {
             path="/profile"
             render={(props) => (
               <React.Fragment>
-                Profile
+                Profilefdsf
                 <div style={{marginTop:"1rem", padding: "0rem 1rem"}}>
                 <input readOnly style={{display: "block", width: "100%", height: "50px"}} type="text" value={this.state.token}/>
                 <div>{this.state.errMessage}</div>
+                <div>The token is {this.state.token}</div>
                 </div>
              </React.Fragment>
             )}
