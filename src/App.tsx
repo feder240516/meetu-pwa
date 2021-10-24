@@ -18,6 +18,10 @@ import CreateAvatar from './UI/pages/CreateAvatar/CreateAvatar';
 import ViewEvents from './UI/pages/Events/ViewEvents/ViewEvents';
 import CreateEvent from './UI/pages/Events/CreateEvent/CreateEvent';
 
+import ReactNotificationComponent from './notifications/ReactNotificationComponent';
+import Notifications from './notifications/Notifications';
+import { onMessageListener } from './firebaseInit';
+
 const interests = [
   {
     id: 0,
@@ -82,9 +86,40 @@ const interests = [
 ]
 
 class App extends Component {
+  state = {
+    show: false,
+    notification: {
+      title: "",
+      body: ""
+    }
+  } 
+
+  componentDidMount() {
+    onMessageListener()
+      .then((payload: any) => {
+        this.setState({
+          show: true,
+          notification: {
+            title: payload.notification.title,
+            body: payload.notification.body,
+          }
+        })
+        console.log(payload);
+      })
+      .catch((err: any) => console.log("failed: ", err));
+  }
+
   render() {
     return (
       <Router>
+        {
+          this.state.show ? 
+            <ReactNotificationComponent 
+              title={this.state.notification.title}
+              body={this.state.notification.body}
+            /> : null
+        }
+        <Notifications />
         <Route
             exact
             path="/welcome"
@@ -188,7 +223,7 @@ class App extends Component {
                 <SingleYourGroup />
               </React.Fragment>
             )}
-          />
+          /> 
 
           <Route
             exact
