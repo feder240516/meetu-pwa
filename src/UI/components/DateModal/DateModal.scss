@@ -1,0 +1,30 @@
+@use '../../styles/global.scss';
+
+.MuiModal-root {
+  .MuiDialog-container {
+    .MuiPaper-root {
+      background-color: global.$primary-color;
+      color: global.$text-white;
+      .MuiTypography-root {
+        color: global.$text-white;
+      }
+      .MuiCalendarPicker-root {
+        .MuiButtonBase-root {
+          background-color: rgba(0, 0, 0, 0.25);
+          color: global.$text-white;
+          &.Mui-selected {
+            background-color: global.$accent-color;
+            color: global.$text-white;
+          }
+        }
+        .PrivatePickersYear-yearButton {
+          &.Mui-selected {
+            background-color: global.$accent-color;
+            color: global.$text-white;
+          }
+        }
+      }
+      
+    }
+  }
+}

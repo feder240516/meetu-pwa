@@ -2,19 +2,29 @@
 
 .input-wrapper {
   .input-label {
-    font-size: 12px;
+    font-size: 16px;
   }
-  .input-component {
-    background-color: #151C53cc;
-    border: 0;
-    border-radius: 6px;
-    box-sizing: border-box;
-    color: global.$text-white;
-    height: 32px;
+  .input-and-icon {
     margin-bottom: 16px;
     margin-top: 16px;
-    padding-left: 12px;
-    padding-right: 12px;
-    width: 100%;
+    position: relative;
+    .input-component {
+      background-color: global.$input-background-color;
+      border: 0;
+      border-radius: 6px;
+      box-sizing: border-box;
+      color: global.$text-white;
+      font-family: global.$main-font;
+      height: 32px;
+      padding-left: 12px;
+      padding-right: 12px;
+      width: 100%;
+    }
+    .input-icon {
+      pointer-events: none;
+      position: absolute;
+      right: 8px;
+      top: 2px;
+    }
   }
 }
