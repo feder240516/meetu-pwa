@@ -1,0 +1,24 @@
+
+.welcome {
+  background-color: #050A31;
+  width: 100vw;
+  height: 100vh;
+  margin: none;
+  position: fixed;
+
+  img{
+    margin-top: 20vh;
+  }
+
+  input{
+    background-color: #EB3AA7;
+    color: white;
+    border: none;
+    padding: 3vw 2vh ;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 10vh;
+    margin-left: 36vw;
+    margin-right: auto;
+  }
+}
