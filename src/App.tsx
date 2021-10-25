@@ -95,7 +95,7 @@ class App extends Component {
   } 
 
   componentDidMount = async () => {
-    await Notification.requestPermission();
+    /*await Notification.requestPermission();
     
     const token = await getToken();
     console.log("The token is: ", token)
@@ -112,7 +112,7 @@ class App extends Component {
         })
         console.log(payload);
       })
-      .catch((err: any) => console.log("failed: ", err));
+      .catch((err: any) => console.log("failed: ", err));*/
   }
 
   render() {
