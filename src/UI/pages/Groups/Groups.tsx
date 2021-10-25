@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./Groups.scss";
 
 import { Link } from "react-router-dom";
-import axios from "axios";
+import AxiosServer from '../../../Data/Http/AxiosServer';
 
 import GroupList from '../../components/GroupList/GroupList';
 
-const groups = [
+import { groups } from '../../../Data/Static/Groups';
+
+/*const groups = [
     {
         id: 0,
         title: "Robocup",
@@ -31,11 +33,23 @@ const groups = [
         isPending: false,
         description: "No description."
     }
-]
+]*/
 
 const Groups = (props: any) => {
-    //const [groups, setGroups] = useState([]);
-    //const getGroups = async () => {}
+    /*const [groups, setGroups] = useState([]);
+
+    const getGroups = async () => {
+        try {
+            const { data } = await AxiosServer.get<any[]>("/api/service/groups");
+            setGroups(data);
+        } catch(error) {
+            console.log(error)
+        } 
+    }
+
+    useEffect(() => {
+       getGroups();
+    }, []);*/
 
     return (
         <div className="Groups">

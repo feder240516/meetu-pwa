@@ -19,7 +19,6 @@ import ViewEvents from './UI/pages/Events/ViewEvents/ViewEvents';
 import CreateEvent from './UI/pages/Events/CreateEvent/CreateEvent';
 
 import ReactNotificationComponent from './notifications/ReactNotificationComponent';
-import Notifications from './notifications/Notifications';
 import { onMessageListener, getToken } from './firebaseInit';
 
 const interests = [
@@ -96,6 +95,8 @@ class App extends Component {
   } 
 
   componentDidMount = async () => {
+    /*await Notification.requestPermission();
+    
     const token = await getToken();
     console.log("The token is: ", token)
     this.setState({token});
@@ -111,7 +112,7 @@ class App extends Component {
         })
         console.log(payload);
       })
-      .catch((err: any) => console.log("failed: ", err));
+      .catch((err: any) => console.log("failed: ", err));*/
   }
 
   render() {
@@ -124,7 +125,7 @@ class App extends Component {
               body={this.state.notification.body}
             /> : null
         }
-        {/*<Notifications />*/}
+
         <Route
             exact
             path="/welcome"

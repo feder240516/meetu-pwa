@@ -56,7 +56,7 @@ const SingleGroup = (props: any) => {
                 <h1 className="-highlighted">{group ? group.title : ""}</h1>
                 <p>{group ? group.description : ""}</p>
                 <RoundButton 
-                    title="Ask to join"
+                    label="Ask to join"
                     backgroundColor="#EB3AA7"
                     height="0.75rem"
                     width="120px"

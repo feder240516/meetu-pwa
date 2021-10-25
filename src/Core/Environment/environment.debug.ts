@@ -1,5 +1,5 @@
 const environment = {
-  host: "https://localhost:8080"
+  host: "https://sabana-meet.com"
 };
 
 export default environment
