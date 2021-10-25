@@ -22,7 +22,7 @@ const { REACT_APP_VAPID_KEY } = process.env;
 const publicKey = REACT_APP_VAPID_KEY;
 
 export const getToken = async (/*setTokenFound: any*/) => {
-  let currentToken = "";
+  let currentToken: any = "";
   try {
     currentToken = await messaging.getToken({ vapidKey: publicKey });
     /*if (currentToken) {
@@ -31,7 +31,7 @@ export const getToken = async (/*setTokenFound: any*/) => {
       setTokenFound(false);
     }*/
   } catch (error) {
-    currentToken = JSON.stringify(error);
+    currentToken = { error };
   }
   return currentToken;
 };
