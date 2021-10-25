@@ -23,16 +23,15 @@ const publicKey = REACT_APP_VAPID_KEY;
 
 export const getToken = async (/*setTokenFound: any*/) => {
   let currentToken = "";
-  try {
+  
     currentToken = await messaging.getToken({ vapidKey: publicKey });
     /*if (currentToken) {
       setTokenFound(true);
     } else {
       setTokenFound(false);
     }*/
-  } catch (error) {
-    console.log("An error occurred while retrieving token.", error);
-  }
+  
+  
   return currentToken;
 };
 
