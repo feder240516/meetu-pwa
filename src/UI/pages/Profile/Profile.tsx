@@ -3,12 +3,12 @@ import ProfileService from "../../../Data/Services/ProfileService";
 import Card from "../../components/Card/Card";
 import React, { Component, useState } from "react";
 
-import "./Avatar.scss";
+import "./Profile.scss";
 import { style } from "@mui/system";
 // import { Card, CardContent, CardHeader } from "@mui/material";
 const routes = [
   {
-    to: "/createavatar"
+    to: "/profile"
   }
 ]
 

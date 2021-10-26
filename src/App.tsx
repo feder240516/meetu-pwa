@@ -8,6 +8,26 @@ import BottomNav from './UI/components/BottomNav/BottomNav';
 import Login from './UI/pages/Login/Login';
 import Welcome from './UI/pages/Welcome/Welcome';
 import CreateAvatar from './UI/pages/CreateAvatar/CreateAvatar';
+import Profile from './UI/pages/Profile/Profile';
+import ViewEvents from './UI/pages/Events/ViewEvents/ViewEvents';
+
+const interests = [
+  {
+    id: 0,
+    name:"Gym",
+    src:"/images/Dumbbell.png",
+  },
+  {
+    id: 1,
+    name:"Tennis",
+    src:"/images/Ball.png",
+  },
+  {
+    id: 2,
+    name:"Gym",
+    src:"/images/Shirt.png",
+  }
+]
 
 class App extends Component {
   render() {
@@ -37,6 +57,15 @@ class App extends Component {
             render={(props) => (
               <React.Fragment>
                 <CreateAvatar />
+              </React.Fragment>
+            )}
+          />
+          <Route
+            exact
+            path="/profile"
+            render={(props) => (
+              <React.Fragment>
+                <Profile />
               </React.Fragment>
             )}
           />
