@@ -1,4 +1,4 @@
-export default Interests = [
+export const interests = [
   {
     id: 0,
     name: "Gym",
@@ -13,5 +13,10 @@ export default Interests = [
     id: 2,
     name: "Basketball",
     src: "/images/Shirt.png",
+  },
+  {
+    id: 3,
+    name: "Futbol",
+    src: "/images/Ball.png",
   },
 ];

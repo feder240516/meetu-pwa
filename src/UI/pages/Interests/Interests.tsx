@@ -4,6 +4,8 @@ import "./Interests.scss";
 import SearchInput from '../../components/SearchInput/SearchInput';
 import InterestsList from '../../components/InterestsList/InterestsList';
 
+import { interests } from "../../../Data/Static/Interests";
+
 const Interests = (props: any) => {
     return (
         <div className="Interests">
@@ -12,7 +14,7 @@ const Interests = (props: any) => {
             <div className="InterestsContainer">
                 <div className="-Inner">
                     <span className="inner-txt">Find interests</span>
-                    <InterestsList interests={props.interests}/>
+                    <InterestsList interests={interests}/>
                 </div>
             </div>
         </div>

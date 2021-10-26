@@ -21,69 +21,6 @@ import CreateEvent from './UI/pages/Events/CreateEvent/CreateEvent';
 import ReactNotificationComponent from './notifications/ReactNotificationComponent';
 import { onMessageListener, getToken } from './firebaseInit';
 
-const interests = [
-  {
-    id: 0,
-    name:"Gym",
-    src:"/images/Dumbbell.png",
-  },
-  {
-    id: 1,
-    name:"Tennis",
-    src:"/images/Ball.png",
-  },
-  {
-    id: 2,
-    name:"Gym",
-    src:"/images/Shirt.png",
-  },
-  {
-    id: 0,
-    name:"Gym",
-    src:"/images/Dumbbell.png",
-  },
-  {
-    id: 1,
-    name:"Tennis",
-    src:"/images/Ball.png",
-  },
-  {
-    id: 2,
-    name:"Gym",
-    src:"/images/Shirt.png",
-  },
-  {
-    id: 0,
-    name:"Gym",
-    src:"/images/Dumbbell.png",
-  },
-  {
-    id: 1,
-    name:"Tennis",
-    src:"/images/Ball.png",
-  },
-  {
-    id: 2,
-    name:"Gym",
-    src:"/images/Shirt.png",
-  },
-  {
-    id: 0,
-    name:"Gym",
-    src:"/images/Dumbbell.png",
-  },
-  {
-    id: 1,
-    name:"Tennis",
-    src:"/images/Ball.png",
-  },
-  {
-    id: 2,
-    name:"Gym",
-    src:"/images/Shirt.png",
-  },
-]
-
 class App extends Component {
   state = {
     show: false,
@@ -186,7 +123,7 @@ class App extends Component {
             path="/interests"
             render={(props) => (
               <React.Fragment>
-                <Interests interests={interests}/>
+                <Interests />
               </React.Fragment>
             )}
           />
@@ -196,7 +133,7 @@ class App extends Component {
             path="/interest/:idInterest"
             render={(props) => (
               <React.Fragment>
-                <Interest interests={interests}/>
+                <Interest />
               </React.Fragment>
             )}
           />

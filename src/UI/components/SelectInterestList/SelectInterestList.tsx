@@ -3,25 +3,22 @@ import "./SelectInterestList.scss";
 
 import SelectInterestItem from '../SelectInterestItem/SelectInterestItem';
 
+import { interests } from "../../../Data/Static/Interests";
+
 const SelectInterestList = (props: any) => {
     return (
         <div className="SelectInterestList">
             <ul>
-                <SelectInterestItem 
-                    name="Gym"
-                    src="/images/Dumbbell.png"
-                    backgroundColor="white"
-                />
-               <SelectInterestItem 
-                    name="Tennis"
-                    src="/images/Dumbbell.png"
-                    backgroundColor="white"
-                />
-                <SelectInterestItem 
-                    name="Basketball"
-                    src="/images/Dumbbell.png"
-                    backgroundColor="white"
-                />
+                {
+                    interests.map((interest: any, i: number) => 
+                        (<SelectInterestItem 
+                            key={i}
+                            name={interest.name}
+                            src={interest.src}
+                            backgroundColor="white"
+                        />)
+                    )
+                }
             </ul>
         </div>
     );

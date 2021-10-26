@@ -1,15 +1,52 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import "./Interest.scss";
 
 import {Link} from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 
+import AxiosServer from '../../../Data/Http/AxiosServer';
+
 import InterestPeopleList from '../../components/InterestPeopleList/InterestPeopleList';
 import RoundButton from '../../components/RoundButton/RoundButton';
 
+import { interests } from "../../../Data/Static/Interests";
+
 const Interest = (props: any) => {
+    const isMounted = React.useRef(true);
+    const [peopleWithSameInterest, setPeopleWithSameInterest] = useState([]);
+
     const idInterest = props.match.params.idInterest;
-    const interest = props.interests.filter((interest: any) => interest.id.toString() === idInterest)[0]
+    const interest = interests.filter((interest: any) => interest.id.toString() === idInterest)[0]
+
+    const getPeopleWithSameInterest = async () => {
+        try {
+            const { data } = await AxiosServer.get<any[]>("/api/service/students");
+
+            const people_with_same_interest: any = [];
+            data.forEach((student: any) => {
+                student.interests.forEach((i: any) => {
+                    if(interest.name === i.name) {
+                        people_with_same_interest.push(`${student.name} ${student.lastName}`)
+                    }
+                })
+            });
+
+            if(isMounted.current) {
+                setPeopleWithSameInterest(people_with_same_interest);
+            }
+
+        } catch(error) {
+
+        }
+    }
+
+    useEffect(() => {
+        getPeopleWithSameInterest();
+
+        return () => {
+            isMounted.current = false;
+        }
+    })
 
     return (
         <div className="Interest">
@@ -31,7 +68,10 @@ const Interest = (props: any) => {
                         interest ? 
                             <React.Fragment>
                                 <span className="inner-txt">People with this interest:</span>
-                                <InterestPeopleList interest={interest}/>
+                                <InterestPeopleList 
+                                    avatarList={peopleWithSameInterest}
+                                    interest={interest}
+                                />
                             </React.Fragment> 
                             : 
                             <span className="inner-txt">The interest wasn't found!</span>

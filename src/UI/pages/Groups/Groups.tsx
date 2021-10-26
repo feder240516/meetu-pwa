@@ -8,49 +8,42 @@ import GroupList from '../../components/GroupList/GroupList';
 
 import { groups } from '../../../Data/Static/Groups';
 
-/*const groups = [
-    {
-        id: 0,
-        title: "Robocup",
-        src: "/images/robocup.png",
-        member_count: 12,
-        isPending: false,
-        description: "No description."
-    },
-    {
-        id: 1,
-        title: "Football",
-        src: "/images/football.jpg",
-        member_count: 27,
-        isPending: false,
-        description: "No description."
-    },
-    {
-        id: 2,
-        title: "Basketball",
-        src: "/images/football.jpg",
-        member_count: 8,
-        isPending: false,
-        description: "No description."
-    }
-]*/
-
 const Groups = (props: any) => {
-    /*const [groups, setGroups] = useState([]);
-
-    const getGroups = async () => {
+    const isMounted = React.useRef(true);
+    const [groupsCount, setGroupsCount] = useState({});
+    
+    const getGroupsCounter = async () => {
         try {
-            const { data } = await AxiosServer.get<any[]>("/api/service/groups");
-            setGroups(data);
+            const groups_counter: any = {};
+
+            const { data } = await AxiosServer.get<any[]>("/api/service/students");
+            data.forEach((student: any) => {
+                student.groups.forEach((group: any) => {
+                    if(!groups_counter[group.title]) {
+                        groups_counter[group.title] = 0
+                    }
+                       
+                    groups_counter[group.title]++;
+                })
+            });
+
+            if(isMounted.current) {
+                setGroupsCount(groups_counter);
+            }
+            
         } catch(error) {
             console.log(error)
         } 
     }
 
     useEffect(() => {
-       getGroups();
-    }, []);*/
+        getGroupsCounter();
 
+        return () => {
+            isMounted.current = false;
+        }
+     }, []);
+    
     return (
         <div className="Groups">
             <div className="GroupsTab">
@@ -63,7 +56,7 @@ const Groups = (props: any) => {
             </div>
 
             <div className="GroupsContainer">
-                <GroupList groups={groups} isFromGroups={true}/>
+                <GroupList counters={groupsCount} groups={groups} isFromGroups={true}/>
             </div>
         </div>
     );

@@ -1,43 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./SingleGroup.scss";
 
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import RoundButton from '../../components/RoundButton/RoundButton';
 
-const groups = [
-    {
-        id: 0,
-        title: "Robocup",
-        src: "/images/robocup.png",
-        member_count: 12,
-        isPending: false,
-        description: "No description."
-    },
-    {
-        id: 1,
-        title: "Football",
-        src: "/images/football.jpg",
-        member_count: 27,
-        isPending: false,
-        description: "No description."
-    },
-    {
-        id: 2,
-        title: "Basketball",
-        src: "/images/football.jpg",
-        member_count: 8,
-        isPending: false,
-        description: "No description."
-    }
-]
+import AxiosServer from '../../../Data/Http/AxiosServer';
+import { groups } from '../../../Data/Static/Groups';
+
+const randomIntFromInterval = (min: number, max: number) => { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
 
 const SingleGroup = (props: any) => {
+    const isMounted = React.useRef(true);
+
     const idGroup = props.match.params.idGroup;
     const group = groups.filter((group: any) => group.id.toString() === idGroup)[0]
 
-    //const [group, setGroup] = useState(null);
-    //const getGroup = async () => {}
+    const [participants, setParticipants] = useState([]);
+
+    const getParticipants = async () => {
+        try {
+            const groups_participants: any = [];
+
+            const { data } = await AxiosServer.get<any[]>("/api/service/students");
+            data.forEach((student: any) => {
+                student.groups.forEach((g: any) => {
+                    if(group.title === g.title) {
+                        groups_participants.push(`${student.name} ${student.lastName}`);
+                    }
+                })
+            });
+
+            if(isMounted.current) {
+                setParticipants(groups_participants);
+            }
+
+        } catch(error) {
+            console.log(error)
+        } 
+    }
+
+    const join = async () => {
+        
+    }
+
+    useEffect(() => {
+        getParticipants();
+
+        return () => {
+            isMounted.current = false;
+        };
+    })
 
     return (
         <div className="SingleGroup">
@@ -63,30 +78,17 @@ const SingleGroup = (props: any) => {
                 />
                 <h1>Paticipants</h1>
                 <ul>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-1.png"></img>
-                        <span>Participant 1</span>
-                    </li>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-2.png"></img>
-                        <span>Participant 2</span>
-                        </li>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-3.png"></img>
-                        <span>Participant 3</span>
-                    </li>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-1.png"></img>
-                        <span>Participant 4</span>
-                    </li>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-2.png"></img>
-                        <span>Participant 5</span>
-                        </li>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-3.png"></img>
-                        <span>Participant 6</span>
-                    </li>
+                    {
+                        participants.map((participant: string, i: number) => {
+                            const avatar_face_option = randomIntFromInterval(1, 3);
+                            return (<li key={i}>
+                                <img src={`/images/avatar-faces/avatar-face-${avatar_face_option}.png`}></img>
+                                <span>{participant}</span>
+                            </li>)
+                            }
+                        )
+                        
+                    }
                 </ul>
             </div>
         </div>
