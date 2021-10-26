@@ -8,14 +8,14 @@ export default function ProfileService () {
 
   const loginProfile = async (params: LoginUserRequest) => {
     const response = await AxiosServer.post<LoginUserResponse>(`/students/login`, {
-      body: params
+      ...params
     });
     return response.data;
   }
 
   const registerUser = async (params: RegisterUserRequest) => {
     const response = await AxiosServer.post<RegisterUserResponse>(`/students`, {
-      body: params
+      ...params
     });
     return response.data;
   }
