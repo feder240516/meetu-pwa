@@ -5,7 +5,11 @@ import AxiosServer from "../Http/AxiosServer";
 
 export default function GroupsService () {
   async function getGroups() {
-    return await AxiosServer.get<GetGroupsResponse[]>('/groups');
+    const response = await AxiosServer.get<GetGroupsResponse[]>('/groups');
+    return {
+      ...response,
+      data: response.data.filter(group => group.title)
+    }
   }
 
   async function enterToGroup(user: LoginUserResponse, group: GetGroupsResponse) {
@@ -26,9 +30,18 @@ export default function GroupsService () {
   }
 
   async function leaveGroup(user: LoginUserResponse, groupName: string) {
+    const newGroups = user.groups.filter(group => group.title !== groupName)
+    if (newGroups.length === 0) {
+      newGroups.push({
+        id: 0,
+        description: '',
+        participants: [],
+        title: '',
+      })
+    }
     const requestUser = {
       email: user.email,
-      groups: user.groups.filter(group => group.title !== groupName),
+      groups: newGroups,
       interests: user.interests,
     }
     return await AxiosServer.put<LoginUserResponse>('/students', requestUser);
