@@ -8,7 +8,7 @@ interface IProps {
 
 const Card: React.FC<IProps> = ({children, className}) => {
   return (
-    <div className={`card-component ${className}`}>
+    <div className={`card-component ${className || ''}`}>
       {children}
     </div>
   )

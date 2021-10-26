@@ -1,0 +1,84 @@
+.GroupItem {
+    display: block;
+    box-sizing: border-box;
+    
+    width: 100%;
+    margin-bottom: 1rem;
+
+    .GroupLink {
+        text-decoration: none;
+
+        .-GroupImg {
+            position: relative;
+            height: 170px;
+
+            span {
+                display: block;
+
+                position: absolute;
+                right: 0;
+                bottom: 0;
+
+                padding: 0.5rem;
+                background: #52BBC4;
+
+                color: white;
+                text-transform: uppercase;
+                font-size: 0.9rem;
+                font-weight: 700;
+            }
+        }
+
+        .-GroupContent {
+            display: flex;
+            align-items: center;
+
+            height: 3rem;
+            padding: 0.25rem 1rem;
+            background: #050A31;
+
+            .GroupLabel {
+                font-weight: 700;
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+
+            .avatar-faces {
+                position: relative;
+                display: flex;
+
+                width: 125px;
+                height: 0;
+
+                justify-content: space-between;
+                margin-left: 1rem;
+         
+                img {
+                  display: block;
+                  position: absolute;
+                  transform: translateY(-50%);
+
+                  width: 50px;
+                }
+            }
+
+            .circle {
+                display: flex;
+                height : 45px;
+                width: 45px;
+
+                justify-content: center;
+                align-items: center;
+                
+                border-radius: 50%;
+                background: #52BBC4;
+
+                span {
+                    font-weight: 700;
+                    font-size: 1.05rem;
+                }
+            }
+
+        }
+    }
+}
