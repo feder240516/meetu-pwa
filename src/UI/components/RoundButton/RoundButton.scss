@@ -1,0 +1,44 @@
+.RoundButton {
+    position: relative;
+
+    display: flex;
+    border: none;
+    outline: none;
+
+    width: 100px;
+    padding: 1.25rem 0rem;
+
+    font-size: 1rem;
+    color: white;
+
+    .circle-btn-left {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translateX(-50%);
+
+        height: 100%;
+        width: 50px;
+
+        border-radius: 50%;
+    }
+
+    .circle-btn-right {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translateX(50%);
+
+        height: 100%;
+        width: 50px;
+
+        border-radius: 50%;
+    }
+
+    span {
+        display: block;
+        z-index: 2;
+        width: 100%;
+        text-align: center;
+    }  
+}

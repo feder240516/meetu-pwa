@@ -4,6 +4,9 @@ import './App.scss';
 import { BrowserRouter as Router, Route} from "react-router-dom";
 
 import Map from './UI/pages/Map/Map';
+import Interests from './UI/pages/Interests/Interests';
+import Interest from './UI/pages/Interest/Interest';
+import SelectInterest from './UI/pages/SelectInterest/SelectInterest';
 import BottomNav from './UI/components/BottomNav/BottomNav';
 import Login from './UI/pages/Login/Login';
 import Welcome from './UI/pages/Welcome/Welcome';
@@ -84,7 +87,7 @@ class App extends Component {
             path="/events"
             render={(props) => (
               <React.Fragment>
-                Events
+                <ViewEvents />
               </React.Fragment>
             )}
           />
@@ -93,10 +96,31 @@ class App extends Component {
             path="/interests"
             render={(props) => (
               <React.Fragment>
-                Interests
+                <Interests interests={interests}/>
               </React.Fragment>
             )}
           />
+
+          <Route
+            exact
+            path="/interest/:idInterest"
+            render={(props) => (
+              <React.Fragment>
+                <Interest interests={interests}/>
+              </React.Fragment>
+            )}
+          />
+
+        <Route
+            exact
+            path="/select-interests"
+            render={(props) => (
+              <React.Fragment>
+                <SelectInterest />
+              </React.Fragment>
+            )}
+          />
+
           <Route
             exact
             path="/groups"
