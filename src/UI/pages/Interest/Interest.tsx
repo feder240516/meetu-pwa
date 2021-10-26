@@ -46,7 +46,7 @@ const Interest = (props: any) => {
         return () => {
             isMounted.current = false;
         }
-    })
+    }, [])
 
     return (
         <div className="Interest">

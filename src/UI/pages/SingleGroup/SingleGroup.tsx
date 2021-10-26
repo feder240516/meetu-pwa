@@ -85,7 +85,7 @@ const SingleGroup = (props: any) => {
         return () => {
             isMounted.current = false;
         };
-    })
+    }, [])
 
     return (
         <div className="SingleGroup">
