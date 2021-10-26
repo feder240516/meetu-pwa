@@ -52,7 +52,7 @@ const SingleGroup = (props: any) => {
         console.log("Joining group...");
 
         if(userProfile && group) {
-            await enterToGroup(
+            const modifiedUser = (await enterToGroup(
                 userProfile, 
                 { 
                     id: group.id, 
@@ -60,7 +60,8 @@ const SingleGroup = (props: any) => {
                     description: group.description,
                     participants: []
                 }
-            );
+            )).data;
+            setUserProfile(modifiedUser);
             getParticipants();
         }
     }
@@ -85,7 +86,7 @@ const SingleGroup = (props: any) => {
         return () => {
             isMounted.current = false;
         };
-    })
+    }, [])
 
     return (
         <div className="SingleGroup">

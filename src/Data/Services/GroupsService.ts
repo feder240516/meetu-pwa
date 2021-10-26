@@ -21,8 +21,8 @@ export default function GroupsService () {
       groups: modifiedUser.groups,
       interests: modifiedUser.interests,
     }
-    await AxiosServer.put<LoginUserResponse>('/students', requestUser);
-    return modifiedUser;
+    return await AxiosServer.put<LoginUserResponse>('/students', requestUser);
+    
   }
   
   return {
