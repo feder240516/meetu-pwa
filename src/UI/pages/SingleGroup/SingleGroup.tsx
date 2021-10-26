@@ -97,7 +97,7 @@ const SingleGroup = (props: any) => {
             <div 
                 className="GroupImg"
                 style={{
-                    backgroundImage: "url('/images/robocup.png')",
+                    backgroundImage: `url(${group ? group.src : ""})`,
                     backgroundSize: "cover"
                 }}
             >
