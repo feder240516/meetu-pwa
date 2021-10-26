@@ -6,9 +6,19 @@ import './CreateEvent.scss';
 import DateModal from "../../../components/DateModal/DateModal";
 import TimeModal from "../../../components/TimeModal/TimeModal";
 import { useHistory } from "react-router";
+import { useState } from "react";
+import { CreatePeopleEventByInterestRequest } from "../../../../Core/Entities/Service/Create/CreatePeopleEvents";
+import DayjsUtils from "@date-io/dayjs";
+import dayjs from 'dayjs'
+import EventsService from "../../../../Data/Services/EventsService";
 
 const CreateEvent: React.FC = () => {
   const history = useHistory();
+  const [interest, setInterest] = useState<string | null>(null)
+  const [place, setPlace] = useState<string | null>(null)
+  const [date, setDate] = useState<Date | null>(null)
+  const [time, setTime] = useState<Date | null>(null)
+  const [message, setMessage] = useState("")
   const myInterests = [
     { value: 1, label: 'Football' },
     { value: 2, label: 'Basketball' },
@@ -35,12 +45,25 @@ const CreateEvent: React.FC = () => {
     { value: 5, label: 'Audiovisuals' },
   ]
 
-  const handleChange = (value: any) => {
-    console.log(value);
-  }
-
   const createEvent = () => {
-    history.push('/events');
+    
+    const newTime = dayjs(time).format('HH:mma');
+    const newDate = dayjs(date).format('YYYY-MM-DD');
+    const newEvent: CreatePeopleEventByInterestRequest = {
+      interest: interest || '',
+      place: place || '',
+      date: newDate,
+      message,
+      time: newTime,
+    }
+    console.log({ newEvent });
+    EventsService().createEventByInterest(newEvent)
+      .then(() => {
+        history.push('/events');
+      }).catch(err => {
+        console.log({ err });
+      });
+    
   }
 
   return (
@@ -61,18 +84,26 @@ const CreateEvent: React.FC = () => {
           <SelectInput
             label="Choose an interest"
             options={myInterests}
+            onChange={(value) => setInterest(value)}
           />
           <SelectInput
             label="Choose a place"
             options={places}
+            onChange={(value) => setPlace(value)}
           />
           <p>Select Date and Time</p>
           <div className="create-event__place-and-time-wrapper">
             <div className="flex-grow-1">
-            <DateModal id="date-for-new-event" />
+              <DateModal
+                id="date-for-new-event"
+                onChange={(value) => setDate(value)}
+              />
             </div>
             <div className="flex-grow-1">
-            <TimeModal id="time-for-new-event" />
+              <TimeModal
+                id="time-for-new-event"
+                onChange={(value) => setTime(value)}
+              />
             </div>
           </div>
           <Input
@@ -82,9 +113,10 @@ const CreateEvent: React.FC = () => {
         </div>
       </Card>
       <div className="create-event__create-button-wrapper">
-        <button 
+        <button
           className="create-event__create-button"
           onClick={createEvent}
+          disabled={!interest || !place || !date || !time}
         >
           Create Event
         </button>
