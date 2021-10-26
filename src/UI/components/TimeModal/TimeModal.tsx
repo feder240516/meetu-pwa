@@ -9,13 +9,15 @@ import colorTheme from '../../common/theme/theme';
 
 interface IProps {
   id: string;
+  onChange?: (value: Date | null) => void;
 }
 
-const TimeModal: React.FC<IProps> = ({ id }) => {
+const TimeModal: React.FC<IProps> = ({ id, onChange }) => {
   const [value, setValue] = useState<Date | null>(null);
 
   const handleChange = (newValue: Date | null) => {
     setValue(newValue);
+    if (onChange) { onChange(newValue); }
   };
 
   return (
