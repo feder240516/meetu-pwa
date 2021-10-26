@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PeopleEvent from "../../../../Core/Entities/PeopleEvent";
 import Card from "../../../components/Card/Card"
 import EventCard from "../../../components/EventCard/EventCard"
@@ -8,10 +8,11 @@ import CreateButton from "../../../components/CreateButton/CreateButton";
 import { useHistory } from "react-router-dom";
 import EventsService from "../../../../Data/Services/EventsService";
 import getPeopleEventMapper from "../../../../Data/Mapper/getPeopleEventMapper";
+import { UserContext } from "../../../../Data/Context/UserContext/UserContextProvider";
 
 const ViewEvents: React.FC = () => {
   const history = useHistory();
-  const { getEvents } = EventsService();
+  const [user, setUser] = useContext(UserContext);
   const [todayEvents, setTodayEvents] = useState<PeopleEvent[]>([])
   /*const todayEvents: PeopleEvent[] = [{
     id: 1,
@@ -29,10 +30,16 @@ const ViewEvents: React.FC = () => {
   }*/];
 
   useEffect(() => {
-    getEvents({}).then(events => {
-      const mappedEvents = events.data.map(event => getPeopleEventMapper(event))
-      setTodayEvents(mappedEvents);
-    })
+    if (user) {
+      const groupIDs = user.groups.map(group => group.id);
+      EventsService().getEventsByGroup({groups:groupIDs})
+        .then(events => {
+          const mappedEvents = events.data.map(event => getPeopleEventMapper(event))
+          setTodayEvents(mappedEvents);
+      })
+    } else {
+      history.push('/login');
+    }
   }, [])
 
   const navigateToCreateEvent = () => {

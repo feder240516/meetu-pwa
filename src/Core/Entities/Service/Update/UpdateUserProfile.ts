@@ -1,11 +1,21 @@
 import UserProfile from "../../UserProfile";
 
+export interface UpdateUserProfileResponse {}
+
 export interface UpdateUserProfileRequest {
-  id: number;
-  name: string;
-  hairStyle: number;
-  skinColor: number;
-  gender: string;
+  email:     string;
+  groups:    Group[];
+  interests: Interest[];
 }
 
-export interface UpdateUserProfileResponse {}
+export interface Group {
+  id:          number;
+  title:       string;
+  description: string;
+  participants: string[];
+}
+
+export interface Interest {
+  id:  number;
+  name: string;
+}

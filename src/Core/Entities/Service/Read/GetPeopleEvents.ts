@@ -4,14 +4,20 @@ export interface GetPeopleEventsRequest {
   // id: number
 }
 
-export type GetPeopleEventsResponse = GetPeopleEventApi[];
+export interface GetPeopleEventsByInterestRequest {
+  interests: string[];
+}
 
-export interface GetPeopleEventApi {
-  interest: string;
+export interface GetPeopleEventsByGroupRequest {
+  groups: number[];
+}
+
+export interface GetPeopleEventsResponse {
+  interest?: string; // interest, si es de un interest
   message:  string;
   date:     string;
   time:     string;
   place:    string;
-  title:    string | null;
+  title?:    string; // grupo, si es de un grupo
   id:       number;
 }

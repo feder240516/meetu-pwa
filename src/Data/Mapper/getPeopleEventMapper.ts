@@ -1,7 +1,7 @@
 import PeopleEvent from "../../Core/Entities/PeopleEvent";
-import { GetPeopleEventApi } from "../../Core/Entities/Service/Read/GetPeopleEvents";
+import { GetPeopleEventsResponse } from "../../Core/Entities/Service/Read/GetPeopleEvents";
 
-export default function getPeopleEventMapper(response: GetPeopleEventApi): PeopleEvent {
+export default function getPeopleEventMapper(response: GetPeopleEventsResponse): PeopleEvent {
   /**
    * 
    * @param dateString YYYY/MM/DD
