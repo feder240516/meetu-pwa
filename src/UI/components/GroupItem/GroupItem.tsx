@@ -29,7 +29,7 @@ const GroupItem = (props: any) => {
                         src="/images/avatar-faces/avatar-face-2.png" />
                     </div>
                     <div className="circle">
-                        <span>+{props.member_count && props.member_count - 3 > 0 ? props.member_count - 3 : 0}</span>
+                        <span>+{props.member_count}</span>
                     </div>
                 </div>
                 
