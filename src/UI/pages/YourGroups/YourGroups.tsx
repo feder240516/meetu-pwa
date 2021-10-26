@@ -1,38 +1,48 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import "./YourGroups.scss";
 
+import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import AxiosServer from '../../../Data/Http/AxiosServer';
 
 import GroupList from '../../components/GroupList/GroupList';
 import { groups } from '../../../Data/Static/Groups';
 
+import { UserContext } from '../../../Data/Context/UserContext/UserContextProvider';
+
 const YourGroups = (props: any) => {
-    const isMounted = React.useRef(true)
+    const isMounted = React.useRef(true);
+    const history = useHistory();
+    const [ userProfile, setUserProfile ] = useContext(UserContext);
+
     const [yourGroups, setYourGroups] = useState([]);
     const [groupsCount, setGroupsCount] = useState({});
 
     const getYourGroups = async () => {
         try {
-            const email = "santiagomurcia@gmail.com"; // props.email
+            if(userProfile) {
+                const email = userProfile.email;
+                const { data } = await AxiosServer.get<any[]>("/students");
 
-            const { data } = await AxiosServer.get<any[]>("/students");
-
-            const student = data.filter(student => student.email === email)[0];
-            if(!student) {
-                throw Error("Could not find student!");
-            }
-
-            const your_groups: any = [];
-            student.groups.forEach((group: any) => {
-                const foundGroup = groups.filter((g: any) => g.title === group.title)[0];
-                if(foundGroup) {
-                    your_groups.push(foundGroup);
+                const student = data.filter(student => student.email === email)[0];
+                if(!student) {
+                    throw Error("Could not find student!");
                 }
-            })
 
-            if(isMounted.current) {
-                setYourGroups(your_groups);
+                const your_groups: any = [];
+                student.groups.forEach((group: any) => {
+                    const foundGroup = groups.filter((g: any) => g.title === group.title)[0];
+                    if(foundGroup) {
+                        your_groups.push(foundGroup);
+                    }
+                })
+
+                if(isMounted.current) {
+                    setYourGroups(your_groups);
+                }
+
+            } else { 
+                history.push("/login");
             }
 
         } catch(error) {
