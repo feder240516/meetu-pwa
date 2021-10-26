@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { UserContext } from "../../../Data/Context/UserContext/UserContextProvider";
 import ProfileService from "../../../Data/Services/ProfileService";
 import Card from "../../components/Card/Card";
 import Input from "../../components/Input/Input";
@@ -11,7 +12,18 @@ const routes = [
 ]
 
 export default function Login() {
+  const [ userProfile, setUserProfile ] = useContext(UserContext);
   const { loginProfile, updateProfile, registerUser } = ProfileService();
+
+  const onLogin = () => {
+    loginProfile({
+      email: "santiagomurcia@gmail.com",
+      password: "rajo",
+    }).then(profile => {
+      setUserProfile(profile);
+    });
+  }
+
   return <>
     <div className="login">
       <Card className="centered-card">
@@ -20,6 +32,7 @@ export default function Login() {
           <Input id="login-email" label="Email:"/>
           <Input id="login-password" label="Password:" type="password"/>
         </div>
+        <button onClick={onLogin}>Login</button>
       </Card>
     </div>
   </>
