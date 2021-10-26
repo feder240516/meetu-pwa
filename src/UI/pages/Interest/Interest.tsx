@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Interest.scss";
 
+import {Link} from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 
 import InterestPeopleList from '../../components/InterestPeopleList/InterestPeopleList';
@@ -12,7 +13,13 @@ const Interest = (props: any) => {
 
     return (
         <div className="Interest">
-            <h1>{interest ? interest.name : null}</h1>
+            <div className="-title">
+                    <Link to="/interests">
+                        <img src="/images/arrow_back_ios_24px_outlined.svg"></img>
+                    </Link>
+                    <h1>{interest ? interest.name : null}</h1>
+             </div>
+            
             <div className="circle">
                 <img src={interest ? interest.src : ""} alt=""/>
             </div>
@@ -40,11 +47,13 @@ const Interest = (props: any) => {
                             label="Add interest"
                             backgroundColor="#EB3AA7"
                             onClick={(e: any) => {}}
+                            height="20px"
                         />
                         <RoundButton 
                             label="See events"
                             backgroundColor="#F178B6"
                             onClick={(e: any) => {}}
+                            height="20px"
                         />
                     </div> 
                     : 
