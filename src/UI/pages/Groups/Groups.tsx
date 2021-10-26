@@ -16,7 +16,7 @@ const Groups = (props: any) => {
         try {
             const groups_counter: any = {};
 
-            const { data } = await AxiosServer.get<any[]>("/api/service/students");
+            const { data } = await AxiosServer.get<any[]>("/students");
             data.forEach((student: any) => {
                 student.groups.forEach((group: any) => {
                     if(!groups_counter[group.title]) {

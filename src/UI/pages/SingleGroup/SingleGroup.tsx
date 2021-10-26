@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import "./SingleGroup.scss";
 
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import RoundButton from '../../components/RoundButton/RoundButton';
 
+import { UserContext } from '../../../Data/Context/UserContext/UserContextProvider';
 import AxiosServer from '../../../Data/Http/AxiosServer';
 import { groups } from '../../../Data/Static/Groups';
+
+import GroupsService from '../../../Data/Services/GroupsService';
 
 const randomIntFromInterval = (min: number, max: number) => { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -14,17 +17,20 @@ const randomIntFromInterval = (min: number, max: number) => { // min and max inc
 
 const SingleGroup = (props: any) => {
     const isMounted = React.useRef(true);
+    const [ userProfile, setUserProfile ] = useContext(UserContext);
 
     const idGroup = props.match.params.idGroup;
     const group = groups.filter((group: any) => group.id.toString() === idGroup)[0]
 
     const [participants, setParticipants] = useState([]);
 
+    const { enterToGroup } = GroupsService();
+
     const getParticipants = async () => {
         try {
             const groups_participants: any = [];
 
-            const { data } = await AxiosServer.get<any[]>("/api/service/students");
+            const { data } = await AxiosServer.get<any[]>("/students");
             data.forEach((student: any) => {
                 student.groups.forEach((g: any) => {
                     if(group.title === g.title) {
@@ -43,7 +49,34 @@ const SingleGroup = (props: any) => {
     }
 
     const join = async () => {
-        
+        console.log("Joining group...");
+
+        if(userProfile && group) {
+            await enterToGroup(
+                userProfile, 
+                { 
+                    id: group.id, 
+                    title: group.title,
+                    description: group.description,
+                    participants: []
+                }
+            );
+            getParticipants();
+        }
+    }
+
+    const isMember =  () => {
+        let isMember = false;
+
+        if(userProfile) {
+            userProfile.groups.forEach((g: any) => {
+                if(group.title === g.title) {
+                    isMember = true;
+                }
+            })
+        }
+
+        return isMember;
     }
 
     useEffect(() => {
@@ -71,10 +104,12 @@ const SingleGroup = (props: any) => {
                 <h1 className="-highlighted">{group ? group.title : ""}</h1>
                 <p>{group ? group.description : ""}</p>
                 <RoundButton 
-                    label="Ask to join"
-                    backgroundColor="#EB3AA7"
+                    label={isMember() ? "You are a member of this group!" : "Ask to join"}
+                    backgroundColor={isMember() ? "#4D1568":"#EB3AA7"}
                     height="0.75rem"
-                    width="120px"
+                    width={isMember() ? "150px" : "120px"}
+                    customStyle={isMember() ? { pointerEvents: "none"} : {}}
+                    onClick={(e: any) => { join() }}
                 />
                 <h1>Paticipants</h1>
                 <ul>

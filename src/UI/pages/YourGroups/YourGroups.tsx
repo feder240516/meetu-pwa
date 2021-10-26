@@ -16,7 +16,7 @@ const YourGroups = (props: any) => {
         try {
             const email = "santiagomurcia@gmail.com"; // props.email
 
-            const { data } = await AxiosServer.get<any[]>("/api/service/students");
+            const { data } = await AxiosServer.get<any[]>("/students");
 
             const student = data.filter(student => student.email === email)[0];
             if(!student) {
@@ -44,7 +44,7 @@ const YourGroups = (props: any) => {
         try {
             const groups_counter: any = {};
 
-            const { data } = await AxiosServer.get<any[]>("/api/service/students");
+            const { data } = await AxiosServer.get<any[]>("/students");
             data.forEach((student: any) => {
                 student.groups.forEach((group: any) => {
                     if(!groups_counter[group.title]) {

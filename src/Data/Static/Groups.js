@@ -1,6 +1,6 @@
 export const groups = [
   {
-    id: 0,
+    id: 1,
     title: "Robocup",
     src: "/images/robocup.png",
     member_count: 0,
@@ -8,7 +8,7 @@ export const groups = [
     description: "No description.",
   },
   {
-    id: 1,
+    id: 2,
     title: "Football",
     src: "/images/football.jpg",
     member_count: 0,
@@ -16,7 +16,7 @@ export const groups = [
     description: "No description.",
   },
   {
-    id: 2,
+    id: 3,
     title: "Basketball",
     src: "/images/basketball.jpg",
     member_count: 0,

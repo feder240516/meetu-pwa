@@ -20,7 +20,7 @@ const Interest = (props: any) => {
 
     const getPeopleWithSameInterest = async () => {
         try {
-            const { data } = await AxiosServer.get<any[]>("/api/service/students");
+            const { data } = await AxiosServer.get<any[]>("/students");
 
             const people_with_same_interest: any = [];
             data.forEach((student: any) => {
