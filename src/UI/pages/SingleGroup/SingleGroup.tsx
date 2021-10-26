@@ -1,43 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import "./SingleGroup.scss";
 
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import RoundButton from '../../components/RoundButton/RoundButton';
 
-const groups = [
-    {
-        id: 0,
-        title: "Robocup",
-        src: "/images/robocup.png",
-        member_count: 12,
-        isPending: false,
-        description: "No description."
-    },
-    {
-        id: 1,
-        title: "Football",
-        src: "/images/football.jpg",
-        member_count: 27,
-        isPending: false,
-        description: "No description."
-    },
-    {
-        id: 2,
-        title: "Basketball",
-        src: "/images/football.jpg",
-        member_count: 8,
-        isPending: false,
-        description: "No description."
-    }
-]
+import { UserContext } from '../../../Data/Context/UserContext/UserContextProvider';
+import AxiosServer from '../../../Data/Http/AxiosServer';
+import { groups } from '../../../Data/Static/Groups';
+
+import GroupsService from '../../../Data/Services/GroupsService';
+
+const randomIntFromInterval = (min: number, max: number) => { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
 
 const SingleGroup = (props: any) => {
+    const isMounted = React.useRef(true);
+    const [ userProfile, setUserProfile ] = useContext(UserContext);
+
     const idGroup = props.match.params.idGroup;
     const group = groups.filter((group: any) => group.id.toString() === idGroup)[0]
 
-    //const [group, setGroup] = useState(null);
-    //const getGroup = async () => {}
+    const [participants, setParticipants] = useState([]);
+
+    const { enterToGroup } = GroupsService();
+
+    const getParticipants = async () => {
+        try {
+            const groups_participants: any = [];
+
+            const { data } = await AxiosServer.get<any[]>("/students");
+            data.forEach((student: any) => {
+                student.groups.forEach((g: any) => {
+                    if(group.title === g.title) {
+                        groups_participants.push(`${student.name} ${student.lastName}`);
+                    }
+                })
+            });
+
+            if(isMounted.current) {
+                setParticipants(groups_participants);
+            }
+
+        } catch(error) {
+            console.log(error)
+        } 
+    }
+
+    const join = async () => {
+        console.log("Joining group...");
+
+        if(userProfile && group) {
+            const modifiedUser = (await enterToGroup(
+                userProfile, 
+                { 
+                    id: group.id, 
+                    title: group.title,
+                    description: group.description,
+                    participants: []
+                }
+            )).data;
+            setUserProfile(modifiedUser);
+            getParticipants();
+        }
+    }
+
+    const isMember =  () => {
+        let isMember = false;
+
+        if(userProfile) {
+            userProfile.groups.forEach((g: any) => {
+                if(group.title === g.title) {
+                    isMember = true;
+                }
+            })
+        }
+
+        return isMember;
+    }
+
+    useEffect(() => {
+        getParticipants();
+
+        return () => {
+            isMounted.current = false;
+        };
+    }, [])
 
     return (
         <div className="SingleGroup">
@@ -56,37 +105,26 @@ const SingleGroup = (props: any) => {
                 <h1 className="-highlighted">{group ? group.title : ""}</h1>
                 <p>{group ? group.description : ""}</p>
                 <RoundButton 
-                    label="Ask to join"
-                    backgroundColor="#EB3AA7"
+                    label={isMember() ? "You are a member of this group!" : "Ask to join"}
+                    backgroundColor={isMember() ? "#4D1568":"#EB3AA7"}
                     height="0.75rem"
-                    width="120px"
+                    width={isMember() ? "150px" : "120px"}
+                    customStyle={isMember() ? { pointerEvents: "none"} : {}}
+                    onClick={(e: any) => { join() }}
                 />
                 <h1>Paticipants</h1>
                 <ul>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-1.png"></img>
-                        <span>Participant 1</span>
-                    </li>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-2.png"></img>
-                        <span>Participant 2</span>
-                        </li>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-3.png"></img>
-                        <span>Participant 3</span>
-                    </li>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-1.png"></img>
-                        <span>Participant 4</span>
-                    </li>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-2.png"></img>
-                        <span>Participant 5</span>
-                        </li>
-                    <li>
-                        <img src="/images/avatar-faces/avatar-face-3.png"></img>
-                        <span>Participant 6</span>
-                    </li>
+                    {
+                        participants.map((participant: string, i: number) => {
+                            const avatar_face_option = randomIntFromInterval(1, 3);
+                            return (<li key={i}>
+                                <img src={`/images/avatar-faces/avatar-face-${avatar_face_option}.png`}></img>
+                                <span>{participant}</span>
+                            </li>)
+                            }
+                        )
+                        
+                    }
                 </ul>
             </div>
         </div>
