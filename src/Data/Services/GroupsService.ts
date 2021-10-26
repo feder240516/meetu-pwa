@@ -24,9 +24,20 @@ export default function GroupsService () {
     return await AxiosServer.put<LoginUserResponse>('/students', requestUser);
     
   }
+
+  async function leaveGroup(user: LoginUserResponse, groupName: string) {
+    const requestUser = {
+      email: user.email,
+      groups: user.groups.filter(group => group.title !== groupName),
+      interests: user.interests,
+    }
+    return await AxiosServer.put<LoginUserResponse>('/students', requestUser);
+    
+  }
   
   return {
     getGroups,
     enterToGroup,
+    leaveGroup,
   };
 }
