@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import ProfileService from "../../../Data/Services/ProfileService";
+import { UserContext } from "../../../Data/Context/UserContext/UserContextProvider";
 import Card from "../../components/Card/Card";
 import React, { Component, useState } from "react";
 
@@ -19,7 +20,8 @@ export default function App() {
   const [gender, setGender] = useState("Female");
   const [skinColor, setSkin] = useState("Pale");
   const [hairColor, setHair] = useState("Blonde");
-  const [title, setTitle] = useState("hola");
+  const [ userProfile, setUserProfile ] = useContext(UserContext);
+  const { loginProfile, updateProfile, registerUser } = ProfileService();
 
   const checkSelection = () => {
     var imgURL = " ";
@@ -36,6 +38,17 @@ export default function App() {
     const onChange = (e: any) => {
         setIsChecked(!isChecked);
     }
+
+    const onLogin = () => {
+      loginProfile({
+        email: "santiagomurcia@gmail.com",
+        password: "rajo",
+      }).then(profile => {
+        setUserProfile(profile);
+      });
+    }
+
+
   return (
     <div className="App">
       <h1>Create your avatar!</h1>
@@ -131,8 +144,6 @@ export default function App() {
                 className="radio-btn grid-2"
                 onClick={() => {
                   setHair("Blonde");
-                  setTitle("Blonde");
-
                 }}
               >
                 <input
@@ -147,7 +158,6 @@ export default function App() {
                 className="radio-btn grid-2"
                 onClick={() => {
                   setHair("Brown");
-                  setTitle("Brown");
                 }}
               >
                 <input
@@ -162,7 +172,6 @@ export default function App() {
                 className="radio-btn grid-2"
                 onClick={() => {
                   setHair("Black");
-                  setTitle("Black");
                 }}
               >
                 <input
