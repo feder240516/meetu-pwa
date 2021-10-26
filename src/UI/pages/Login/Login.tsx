@@ -11,7 +11,7 @@ const routes = [
 ]
 
 export default function Login() {
-  const { getProfile, updateProfile } = ProfileService();
+  const { loginProfile, updateProfile, registerUser } = ProfileService();
   return <>
     <div className="login">
       <Card className="centered-card">

@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import UserContextProvider from './Data/Context/UserContext/UserContextProvider';
 
 ReactDOM.render(
-    <App />,
+  <UserContextProvider>
+    <App />
+  </UserContextProvider>,
   document.getElementById('root')
 );
 
