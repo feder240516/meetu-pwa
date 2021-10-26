@@ -96,7 +96,7 @@ class App extends Component {
   } 
 
   componentDidMount = async () => {
-    const token = await getToken();
+    /*const token = await getToken();
     console.log("The token is: ", token)
     this.setState({token});
 
@@ -111,7 +111,7 @@ class App extends Component {
         })
         console.log(payload);
       })
-      .catch((err: any) => console.log("failed: ", err));
+      .catch((err: any) => console.log("failed: ", err));*/
   }
 
   render() {
