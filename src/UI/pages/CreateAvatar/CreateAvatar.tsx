@@ -3,9 +3,11 @@ import ProfileService from "../../../Data/Services/ProfileService";
 import { UserContext } from "../../../Data/Context/UserContext/UserContextProvider";
 import Card from "../../components/Card/Card";
 import React, { Component, useState } from "react";
+import { useHistory } from "react-router";
 
 import "./Avatar.scss";
 import { style } from "@mui/system";
+import { RegisterUserRequest } from "../../../Core/Entities/Service/Create/RegisterUser";
 // import { Card, CardContent, CardHeader } from "@mui/material";
 const routes = [
   {
@@ -16,11 +18,12 @@ const routes = [
 
 
 export default function App() {
+  const history = useHistory();
   const [hairStyle, setStyle] = useState("1");
   const [gender, setGender] = useState("Female");
   const [skinColor, setSkin] = useState("Pale");
   const [hairColor, setHair] = useState("Blonde");
-  const [ userProfile, setUserProfile ] = useContext(UserContext);
+  const [userProfile, setUserProfile] = useContext(UserContext);
   const { loginProfile, updateProfile, registerUser } = ProfileService();
 
   const checkSelection = () => {
@@ -32,27 +35,47 @@ export default function App() {
   const getHairIcon = (num: any) => {
     var hairIcon = " ";
     hairIcon = "/images/" + gender + num + ".png";
+
+    console.log(userProfile?.email);
     return hairIcon;
+
   }
   const [isChecked, setIsChecked] = useState(false);
-    const onChange = (e: any) => {
-        setIsChecked(!isChecked);
-    }
+  const onChange = (e: any) => {
+    setIsChecked(!isChecked);
+  }
+  //llamar register profile
+  //status
+  //intereses vacios
+  //grupos vacios 
+  //llamar registerUser
 
-    const onLogin = () => {
-      loginProfile({
-        email: "santiagomurcia@gmail.com",
-        password: "rajo",
-      }).then(profile => {
-        setUserProfile(profile);
-      });
-    }
+  const onNext = () => {
+    const notNullUserProfile = userProfile as unknown as RegisterUserRequest;
+    registerUser({
+        email: notNullUserProfile.email,
+        password: notNullUserProfile.password,
+        career: "",
+        groups: [], 
+        avatar: {  sexo: gender, hairColor: hairColor, hairStyle: hairStyle, skinColor: skinColor },
+        interests: [], 
+        on: "on"
+      }
+      
+    ).then(profile => {
+      setUserProfile(profile as any);
+    })
+      history.push("/profile");
+  }
 
 
   return (
     <div className="App">
       <h1>Create your avatar!</h1>
       <img src={checkSelection()} />
+      <input id="next" value="NEXT" type="submit" onClick={() => {
+                onNext();
+              }}/>
       <Card className="centered-card">
         <div className="grid">
           <div className="radio-btn-container grid-12">
@@ -61,8 +84,8 @@ export default function App() {
                 <label>Character</label>
               </div>
               <li className="grid-3" onClick={() => {
-                  setGender("Female");
-                }}>
+                setGender("Female");
+              }}>
                 <label className="-RadioItem">
                   <input
                     className="-RadioInput"
@@ -80,8 +103,8 @@ export default function App() {
                 </label>
               </li>
               <li className="grid-3" onClick={() => {
-                  setGender("Male");
-                }}>
+                setGender("Male");
+              }}>
                 <label className="-RadioItem">
                   <input
                     className="-RadioInput"
@@ -107,33 +130,33 @@ export default function App() {
               <label>Hair Style</label>
             </div>
             <div className="radio-btn grid-3" onClick={() => {
-                  setStyle("1");
-                }}>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value={gender}
-                    onChange={onChange}
-                    checked={isChecked}
-                  />
-                    <div className="circle"  >
-                      <img src={getHairIcon(1)} alt="" style={{ border: hairStyle == "1" ? "1px solid white" : "none" }} />
-                    </div>
+              setStyle("1");
+            }}>
+              <input
+                type="radio"
+                name="gender"
+                value={gender}
+                onChange={onChange}
+                checked={isChecked}
+              />
+              <div className="circle"  >
+                <img src={getHairIcon(1)} alt="" style={{ border: hairStyle == "1" ? "1px solid white" : "none" }} />
               </div>
-              <div className="radio-btn grid-3" onClick={() => {
-                  setStyle("2");
-                }}>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value={gender}
-                    onChange={onChange}
-                    checked={isChecked}
-                  />
-                    <div className="circle"  >
-                    <img src={getHairIcon(2)} alt="" style={{ border: hairStyle == "2" ? "1px solid white" : "none" }}/>
-                    </div>
+            </div>
+            <div className="radio-btn grid-3" onClick={() => {
+              setStyle("2");
+            }}>
+              <input
+                type="radio"
+                name="gender"
+                value={gender}
+                onChange={onChange}
+                checked={isChecked}
+              />
+              <div className="circle"  >
+                <img src={getHairIcon(2)} alt="" style={{ border: hairStyle == "2" ? "1px solid white" : "none" }} />
               </div>
+            </div>
           </div>
           <div className="radio-btn-container grid-12">
             <div className="grid">
@@ -237,7 +260,7 @@ export default function App() {
           </div>
         </div>
       </Card>
-      <input id="next" value="NEXT" type="submit" />
+      
     </div>
   );
 }
