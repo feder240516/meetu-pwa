@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import "./SingleGroup.scss";
 
+import { useHistory } from "react-router";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import RoundButton from '../../components/RoundButton/RoundButton';
@@ -17,6 +18,7 @@ const randomIntFromInterval = (min: number, max: number) => { // min and max inc
 
 const SingleGroup = (props: any) => {
     const isMounted = React.useRef(true);
+    const history = useHistory();
     const [ userProfile, setUserProfile ] = useContext(UserContext);
 
     const idGroup = props.match.params.idGroup;
@@ -63,6 +65,8 @@ const SingleGroup = (props: any) => {
             )).data;
             setUserProfile(modifiedUser);
             getParticipants();
+        } else {
+            history.push("/login");
         }
     }
 
@@ -93,7 +97,7 @@ const SingleGroup = (props: any) => {
             <div 
                 className="GroupImg"
                 style={{
-                    backgroundImage: "url('/images/robocup.png')",
+                    backgroundImage: `url(${group ? group.src : ""})`,
                     backgroundSize: "cover"
                 }}
             >

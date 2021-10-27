@@ -14,9 +14,4 @@ export const interests = [
     name: "Basketball",
     src: "/images/Shirt.png",
   },
-  {
-    id: 3,
-    name: "Futbol",
-    src: "/images/Ball.png",
-  },
 ];
