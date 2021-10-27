@@ -8,20 +8,20 @@ const RoundButton = (props: any) => {
             onClick={props.onClick} 
             style={{
                 background: props.backgroundColor,  
-                ...props.width ? { width: props.width } : {},
-                ...props.height ? { padding: `${props.height} 0rem` }:{},
+                ...props.width ? {  } : {},
+                ...props.height ? { padding: `${props.height} .75rem` }:{},
                 ...props.customStyle ? { ...props.customStyle }:{}
             }}
         >
-            <div 
+            {/*<div 
                 className="circle-btn-left" 
                 style={{ background: props.backgroundColor}} 
-            />
+            />*/}
             <span>{props.label}</span>
-            <div 
+            {/*<div 
                 className="circle-btn-right" 
                 style={{ background: props.backgroundColor}} 
-            />
+            />*/}
         </button>
     );
 };
