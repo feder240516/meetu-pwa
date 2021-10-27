@@ -83,7 +83,6 @@ const Interest = (props: any) => {
     const hasInterest = () => {
         let hasInterest = false;
 
-        console.log(userProfile)
         if(userProfile) {
             userProfile.interests.forEach((i: any) => {
                 if(interest.name === i.name) {

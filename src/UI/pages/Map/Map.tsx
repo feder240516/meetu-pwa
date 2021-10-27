@@ -19,6 +19,9 @@ interface IState {
   deltaX: number,
   deltaY: number,
   mouseDown: boolean
+
+  latitude: number,
+  longitude: number,
 }
 
 class Map extends Component<IProps, IState> {
@@ -59,7 +62,10 @@ class Map extends Component<IProps, IState> {
 
       deltaX: 0,
       deltaY: 0,
-      mouseDown: false
+      mouseDown: false,
+
+      latitude: 0,
+      longitude: 0
     }
   }
 
@@ -68,6 +74,26 @@ class Map extends Component<IProps, IState> {
     image.onload = () => resolve(image);
     image.src = imagePath;
   })
+
+  getPosition = () => {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          console.log("latitude: ", this.state.latitude);
+          console.log("longitude: ", this.state.longitude);
+          this.setState({
+            latitude: pos.coords.latitude, 
+            longitude: pos.coords.longitude
+          })
+        }, 
+        (error) => {
+          console.group(error);
+        }, {
+          enableHighAccuracy: true,
+          maximumAge: 0
+        });
+    }
+  }
 
   componentDidMount = async () => {
     this.images["campus"] = await this.loadImage("/images/unisabana-map.png");
@@ -89,12 +115,16 @@ class Map extends Component<IProps, IState> {
 
     const { campusOffsetX, campusOffsetY } = this.state;
     initialPositions["campus"] = {x: campusOffsetX, y: campusOffsetY};
-    initialPositions["avatar"] = {x: 130, y: 0};
+    initialPositions["avatar"] = {x: campusOffsetX + 430, y: campusOffsetY + 270};
 
     this.setState({ positions: initialPositions });
 
-    this.centerAvatar()
+    
+    //this.centerAvatar()
 
+    setInterval(() => {
+      this.getPosition();
+    }, 1000);
     window.requestAnimationFrame(this.update);
   }
 
