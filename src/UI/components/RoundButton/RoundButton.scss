@@ -5,13 +5,15 @@
     border: none;
     outline: none;
 
-    width: 100px;
+    /*width: 100px;*/
     padding: 1.25rem 0rem;
 
     font-size: 1rem;
     color: white;
 
     box-sizing: border-box;
+
+    border-radius: 3000px;
 
     .circle-btn-left {
         position: absolute;

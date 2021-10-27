@@ -1,42 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 
+import { useHistory } from "react-router";
 import { withRouter } from 'react-router';
 import { Link } from "react-router-dom";
 import "./SingleYourGroup.scss";
 
-const groups = [
-    {
-        id: 0,
-        title: "Robocup",
-        src: "/images/robocup.png",
-        member_count: 12,
-        isPending: false,
-        description: "No description."
-    },
-    {
-        id: 1,
-        title: "Football",
-        src: "/images/football.jpg",
-        member_count: 27,
-        isPending: false,
-        description: "No description."
-    },
-    {
-        id: 2,
-        title: "Basketball",
-        src: "/images/football.jpg",
-        member_count: 8,
-        isPending: false,
-        description: "No description."
-    }
-]
+import { UserContext } from '../../../Data/Context/UserContext/UserContextProvider';
+import GroupsService from '../../../Data/Services/GroupsService';
+import { groups } from '../../../Data/Static/Groups';
 
 const SingleYourGroup = (props: any) => {
     const idGroup = props.match.params.idGroup;
+    const history = useHistory();
     const group = groups.filter((group: any) => group.id.toString() === idGroup)[0]
 
-    //const [group, setGroup] = useState(null);
-    //const getGroup = async () => {}
+    const [ userProfile, setUserProfile ] = useContext(UserContext);
+
+    const { leaveGroup } = GroupsService();
+
+    const leave = async () => {
+        console.log("Leaving group...");
+
+        if(userProfile && group) {
+            const modifiedUser = (await leaveGroup(
+                userProfile, 
+                group.title
+            )).data;
+            setUserProfile(modifiedUser);
+            history.push("/your-groups");
+        } else {
+            history.push("/login");
+        }
+    }
 
     return (
         <div className="SingleYourGroup">
@@ -59,7 +54,7 @@ const SingleYourGroup = (props: any) => {
                     <span>Contact numbers</span>
                 </button>
                 <div className="-absolute">
-                    <button className="-red">
+                    <button className="-red" onClick={(e) => leave()}>
                         <img src="/images/directions_run_24px.png"/>
                         <span>Leave group</span>
                     </button>
