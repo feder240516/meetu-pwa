@@ -4,10 +4,13 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import UserContextProvider from './Data/Context/UserContext/UserContextProvider';
+import EventsContextProvider from './Data/Context/EventsContext/EventsContextProvider';
 
 ReactDOM.render(
   <UserContextProvider>
-    <App />
+    <EventsContextProvider>
+      <App />
+    </EventsContextProvider>
   </UserContextProvider>,
   document.getElementById('root')
 );
