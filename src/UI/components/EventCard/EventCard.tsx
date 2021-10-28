@@ -1,6 +1,7 @@
 import React from 'react';
 import PeopleEvent from '../../../Core/Entities/PeopleEvent';
 import CreateButton from '../CreateButton/CreateButton';
+import dayjs from 'dayjs';
 import "./EventCard.scss";
 
 interface IProps {
@@ -24,7 +25,7 @@ const EventCard: React.FC<IProps> = ({children, className, peopleEvent, onClick}
       </div>
       <div className="event-card-content">
         <p className="event-card-title">Robocup</p>
-        <p className="event-card-text">{time.getHours()}:{time.getMinutes()} @ {place}</p>
+        <p className="event-card-text">{dayjs(time).format('HH:mm')} @ {place}</p>
       </div>
     </div>
   )

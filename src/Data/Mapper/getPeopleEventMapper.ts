@@ -17,6 +17,8 @@ export default function getPeopleEventMapper(response: GetPeopleEventsResponse):
     place: response.place,
     time: getDateFromString(response.date),
     duration: response.time,
-    image: '/images/event-covers/Robocup.png'
+    image: `/images/event-covers/${(response.title || response.interest || '').toLowerCase()}.png`,
+    group: response.title,
+    interest: response.interest,
   }
 }
