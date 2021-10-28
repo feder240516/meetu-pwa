@@ -37,8 +37,10 @@ const handleInputChange = (event: any) => {
     loginProfile({
       email: datos.correo,
       password: datos.contrasena,
+      
     }).then(profile => {
       setUserProfile(profile);
+      history.push("/")
     }).catch(error => {
       setUserProfile({
         email: datos.correo,
