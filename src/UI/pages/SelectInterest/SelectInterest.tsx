@@ -12,12 +12,25 @@ import { UserContext } from '../../../Data/Context/UserContext/UserContextProvid
 import InterestsService from '../../../Data/Services/InterestsService';
 
 const SelectInterest = (props: any) => {
+    const [search, setSearch] = useState("");
     const [selectedInterests, setSelectedInterests] = useState<any>([]);
 
     const history = useHistory();
 
     const [ userProfile, setUserProfile ] = useContext(UserContext);
     const { setInterests } = InterestsService();
+
+    const onChangeSearch = (e: any) => {
+        setSearch(e.target.value);
+    }
+
+    const getFilteredInterests = () => {
+        return search !== ""
+        ? interests.filter((interest: any) =>
+            interest.name.toLowerCase().includes(search.toLowerCase())
+          )
+        : interests;
+    }
 
     const getInterests = () => {
         if(userProfile) {
@@ -80,13 +93,13 @@ const SelectInterest = (props: any) => {
 
     return (
         <div className="SelectInterest">
-            <SearchInput />
+            <SearchInput onChange={onChangeSearch} />
 
             <div className="InterestsContainer">
                 <div className="-Inner">
                     <span className="inner-txt">Select your interests!</span>
                     <SelectInterestList 
-                        interests={interests} 
+                        interests={getFilteredInterests()} 
                         selectedInterests={selectedInterests}
                         toggleSelect={toggleSelect}
                     />
