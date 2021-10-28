@@ -3,20 +3,23 @@ import "./SelectInterestList.scss";
 
 import SelectInterestItem from '../SelectInterestItem/SelectInterestItem';
 
-import { interests } from "../../../Data/Static/Interests";
-
 const SelectInterestList = (props: any) => {
     return (
         <div className="SelectInterestList">
             <ul>
                 {
-                    interests.map((interest: any, i: number) => 
-                        (<SelectInterestItem 
-                            key={i}
-                            name={interest.name}
-                            src={interest.src}
-                            backgroundColor="white"
-                        />)
+                    props.interests.map((interest: any, i: number) => {
+                            let isChecked = props.selectedInterests.includes(interest.id);
+                            return (<SelectInterestItem 
+                                key={i}
+                                id={interest.id}
+                                name={interest.name}
+                                src={interest.src}
+                                backgroundColor="white"
+                                isChecked={isChecked}
+                                onToggle={props.toggleSelect}
+                            />)
+                        }
                     )
                 }
             </ul>

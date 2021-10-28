@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import "./SelectInterestItem.scss";
 
 const SelectInterestItem = (props: any) => {
-    const [isChecked, setIsChecked] = useState(false);
+    //const [isChecked, setIsChecked] = useState(false);
+
     const onChange = (e: any) => {
-        setIsChecked(!isChecked);
+        //setIsChecked(!isChecked);
+        props.onToggle(props.id);
     }
     
     return (
@@ -16,10 +18,10 @@ const SelectInterestItem = (props: any) => {
                     name="interest_name"
                     value={props.name}
                     onChange={onChange}
-                    checked={isChecked}
+                    checked={props.isChecked}
                 />
                 <div className="-InterestItem">
-                    <div className="circle" style={{ background: isChecked ? "#EB3AA7" : props.backgroundColor }}>
+                    <div className="circle" style={{ background: props.isChecked ? "#EB3AA7" : props.backgroundColor }}>
                         <img src={props.src} alt=""></img>
                     </div>
                     <span>{props.name}</span>
