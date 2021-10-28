@@ -30,7 +30,8 @@ export default function App() {
   const checkSelection = () => {
     var imgURL = " ";
     console.log("desde profile" + userProfile?.avatar);
-    imgURL = userProfile?.avatar + ".png";
+   
+    imgURL = `/images/${userProfile?.avatar.sexo}${userProfile?.avatar.skinColor}${userProfile?.avatar.hairColor}${userProfile?.avatar.hairStyle}.png`;
     return imgURL;
   }
 
@@ -51,10 +52,10 @@ export default function App() {
         <Card className="centered-card">
         <div className="grid">
           <div className="grid-12">
-            <h4>Your Name</h4>
+            <h4>{userProfile?.name}</h4>
           </div>
           <div className="grid-12">
-            <h4>Your Career</h4>
+            <h4>{userProfile?.career}</h4>
           </div>
           <div className="grid-12">
             <h4>Interests</h4>

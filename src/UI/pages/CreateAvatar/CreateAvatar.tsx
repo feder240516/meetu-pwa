@@ -58,15 +58,15 @@ export default function App() {
         career: "",
         groups: [], 
         on: "on",
-        avatar: {  sexo: gender, hairColor: hairColor, hairStyle: hairStyle, skinColor: skinColor },
-        interests: [{"name": "Futbol"}], 
+        avatar: { sexo: gender, hairColor: hairColor, hairStyle: hairStyle, skinColor: skinColor },
+        interests: [], 
         
       }
       
     ).then(profile => {
 
-      setUserProfile(profile as any);
-      console.log("desde create " + JSON.stringify(profile as any));
+      setUserProfile(profile);
+      console.log("desde create " + profile);
     })
       history.push("/profile");
   }
