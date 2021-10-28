@@ -11,7 +11,7 @@ const ReactNotificationComponent = (props : any) => {
         <p style={{color: "black"}}>{props.body}</p>
     </div>)
 
-    toast.info(<Display />);
+    toast(<Display />);
   }, [props.title, props.body])
 
   return (

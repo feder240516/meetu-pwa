@@ -34,6 +34,14 @@ class App extends Component {
   } 
 
   componentDidMount = async () => {
+    this.setState({
+      show: true,
+      notification: {
+        title: "Notification Test",
+        body: "This is a notification"
+      }
+    })
+    
     /*await Notification.requestPermission();
     
     const token = await getToken();
