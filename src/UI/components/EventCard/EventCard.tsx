@@ -7,12 +7,18 @@ interface IProps {
   children?: any;
   className?: string;
   peopleEvent: PeopleEvent;
+  onClick?: () => any;
 }
 
-const EventCard: React.FC<IProps> = ({children, className, peopleEvent}) => {
+const EventCard: React.FC<IProps> = ({children, className, peopleEvent, onClick}) => {
   const {name, time, place, image} = peopleEvent;
+  
+  const handleClick = () => {
+    if (onClick) onClick()
+  }
+
   return (
-    <div className={`event-card-component ${className}`}>
+    <div className={`event-card-component ${className}`} onClick={() => { handleClick() }}>
       <div className="event-card-image-wrapper">
         <img src={image} alt={name} className='event-card-image' />
       </div>
