@@ -1,8 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import ProfileService from "../../../Data/Services/ProfileService";
 import Card from "../../components/Card/Card";
 import React, { Component, useState } from "react";
 import SelectInput from "../../components/SelectInput/SelectInput";
+import { UserContext } from "../../../Data/Context/UserContext/UserContextProvider";
+import { useHistory } from "react-router";
 
 import "./Profile.scss";
 import { style } from "@mui/system";
@@ -16,11 +18,9 @@ const routes = [
 
 
 export default function App() {
+  const history = useHistory();
   const [hairStyle, setStyle] = useState("1");
-  const [gender, setGender] = useState("Female");
-  const [skinColor, setSkin] = useState("Pale");
-  const [hairColor, setHair] = useState("Blonde");
-  const [title, setTitle] = useState("hola");
+  const [userProfile, setUserProfile] = useContext(UserContext);
 
   const state = [
     { value: 1, label: 'Online 🟢' },
@@ -29,13 +29,14 @@ export default function App() {
 
   const checkSelection = () => {
     var imgURL = " ";
-    imgURL = "/images/" + gender + skinColor + hairColor + hairStyle + ".png";
+    console.log("desde profile" + userProfile?.avatar);
+    imgURL = userProfile?.avatar + ".png";
     return imgURL;
   }
 
   const getHairIcon = (num: any) => {
     var hairIcon = " ";
-    hairIcon = "/images/" + gender + num + ".png";
+    
     return hairIcon;
   }
   const [isChecked, setIsChecked] = useState(false);

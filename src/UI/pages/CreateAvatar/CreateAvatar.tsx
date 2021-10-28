@@ -57,13 +57,16 @@ export default function App() {
         password: notNullUserProfile.password,
         career: "",
         groups: [], 
+        on: "on",
         avatar: {  sexo: gender, hairColor: hairColor, hairStyle: hairStyle, skinColor: skinColor },
-        interests: [], 
-        on: "on"
+        interests: [{"name": "Futbol"}], 
+        
       }
       
     ).then(profile => {
+
       setUserProfile(profile as any);
+      console.log("desde create " + JSON.stringify(profile as any));
     })
       history.push("/profile");
   }
