@@ -190,6 +190,8 @@ class Map extends Component<IProps, IState> {
   getPos = (e: any) => { return {x: e.touches[0].pageX, y: e.touches[0].pageY} }
 
   onTouchStart = (e: any) => {
+    e?.stopPropagation();
+    e?.preventDefault();
     this.setState({ mouseDown: true })
 
     const {x, y} = this.getPos(e);
@@ -197,6 +199,8 @@ class Map extends Component<IProps, IState> {
   }
 
   onTouchMove = (e: any) => {
+    e?.stopPropagation();
+    e?.preventDefault();
     if(this.state.mouseDown) {
       const {x, y} = this.getPos(e);
 
@@ -231,6 +235,8 @@ class Map extends Component<IProps, IState> {
   } 
 
   onTouchEnd = (e: any) => {
+    e?.stopPropagation();
+    e?.preventDefault();
     if(this.state.mouseDown) {
       this.setState({mouseDown: false});
     

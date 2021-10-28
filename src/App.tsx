@@ -18,6 +18,7 @@ import CreateAvatar from './UI/pages/CreateAvatar/CreateAvatar';
 import Profile from './UI/pages/Profile/Profile';
 import ViewEvents from './UI/pages/Events/ViewEvents/ViewEvents';
 import CreateEvent from './UI/pages/Events/CreateEvent/CreateEvent';
+import EventDetail from './UI/pages/Events/EventDetail/EventDetail';
 
 import ReactNotificationComponent from './notifications/ReactNotificationComponent';
 import { onMessageListener, getToken } from './firebaseInit';
@@ -125,6 +126,15 @@ class App extends Component {
             render={(props) => (
               <React.Fragment>
                 <CreateEvent />
+              </React.Fragment>
+            )}
+          />
+          <Route
+            exact
+            path="/events/:idEvent"
+            render={(props) => (
+              <React.Fragment>
+                <EventDetail {...props}/>
               </React.Fragment>
             )}
           />
