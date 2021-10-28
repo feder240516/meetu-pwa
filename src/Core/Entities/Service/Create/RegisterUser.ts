@@ -11,10 +11,21 @@ export interface RegisterUserRequest {
 }
 
 export interface RegisterUserResponse {
-  
+  id:         number;
+  email:      string;
+  password:   string;
+  name:       string;
+  lastName:   string;
+  career:     string;
+  status:     string;
+  university: any;
+  avatar:     Avatar;
+  groups:     Group[];
+  interests:  Interest[];
 }
 
 export interface Avatar {
+  id?:        number;
   sexo:      string;
   hairStyle: string;
   skinColor: string;
@@ -22,9 +33,13 @@ export interface Avatar {
 }
 
 export interface Interest {
+  id:   number;
   name: string;
 }
 
 export interface Group {
-  title: string;
+  id:           number;
+  title:        string;
+  description:  string;
+  participants: any[];
 }
