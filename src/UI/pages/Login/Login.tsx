@@ -5,6 +5,7 @@ import ProfileService from "../../../Data/Services/ProfileService";
 import Card from "../../components/Card/Card";
 import Input from "../../components/Input/Input";
 import "./Login.scss";
+import { Link } from "react-router-dom";
 // import { Card, CardContent, CardHeader } from "@mui/material";
 const routes = [
   {
@@ -67,6 +68,7 @@ const handleInputChange = (event: any) => {
           <input id="contrasena" onChange={handleInputChange} name="contrasena" type="password" />
         </div>
         <button onClick={onLogin}>Login</button>
+        <Link to="/select-interest">Go to</Link>
       </Card>
     </div>
   </>
