@@ -1,42 +1,77 @@
-
-.App{
-   /* background-image: url("../../../assets/Background.png");
+.App {
+  /* background-image: url("../../../assets/Background.png");
     background-repeat: no-repeat;
     background-size: cover;*/
-    //background-color: white ;
-    height: 100vh;
-    width: 100vw;
+  //background-color: white ;
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+  h1 {
     text-align: center;
-    h1{
-        text-align: center;
-        font-weight: bolder;
-        padding-top: 2.5vh;
-        padding-bottom: 2.5vh;
-    }
-    
+    font-weight: bolder;
+    padding-top: 2.5vh;
+    padding-bottom: 2.5vh;
+  }
 }
 .grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-gap: 10px;
-    
-  }
-  
-  @for $i from 1 through 12 {
-    .grid-#{$i} {
-      grid-column: span ($i);
-      margin-top: 2vh;
-    }
-  }
-
-  .centered-card {
-    h4 {
-      text-align:left;
-      margin: 2vh;
-    }
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 10px;
 }
 
-.select-label{
-    text-align:left;
+@for $i from 1 through 12 {
+  .grid-#{$i} {
+    grid-column: span ($i);
+    margin-top: 2vh;
+  }
+}
+
+.centered-card {
+  h4 {
+    text-align: left;
     margin: 2vh;
+  }
+}
+
+.select-label {
+  text-align: left;
+  margin: 2vh;
+}
+
+.add-event {
+  background-color: #eb3aa7;
+  padding: 15px 25px;
+  font-size: xx-large;
+  text-decoration: none;
+  font-weight: 900;
+  border-radius: 50%;
+}
+.InterestsList {
+  list-style: none;
+  height: 15vh;
+  overflow: auto;
+
+  .circle {
+    width: 20px;
+    height: auto;
+    padding: 15px 30px;
+
+    
+  }
+  .img{
+    width: 10px;
+  height: auto;
+  }
+
+  ul {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    justify-content: space-evenly;
+    align-items: flex-start;
+  }
 }

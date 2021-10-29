@@ -6,7 +6,7 @@ import Card from "../../components/Card/Card";
 import Input from "../../components/Input/Input";
 import "./Login.scss";
 import { Link } from "react-router-dom";
-// import { Card, CardContent, CardHeader } from "@mui/material";
+
 const routes = [
   {
     to: "/login"
@@ -16,43 +16,36 @@ const routes = [
 export default function Login() {
   const history = useHistory();
   const [userProfile, setUserProfile] = useContext(UserContext);
-  const { loginProfile, updateProfile, registerUser } = ProfileService();
-  const [datos, setDatos] = useState({
-    correo: '',
-    contrasena: ''
-})
+  const { loginProfile } = ProfileService();
+  const [mail, setMail] = useState(" ");
+  const [pass, setPass] = useState(" ");
 
-const handleInputChange = (event: any) => {
-    // console.log(event.target.name)
-    // console.log(event.target.value)
-    setDatos({
-        ...datos,
-        [event.target.name] : event.target.value 
-    })
-
-    console.log(event.target.name)
-}
-
+  const changeMail = (mail: string) => {
+    setMail(mail);
+  }
+  const changePass = (password: string) => {
+    setPass(password);
+  }
 
   const onLogin = () => {
     loginProfile({
-      email: datos.correo,
-      password: datos.contrasena,
-      
+      email: mail,
+      password: pass,
+
     }).then(profile => {
       setUserProfile(profile);
       history.push("/")
     }).catch(error => {
       setUserProfile({
-        email: datos.correo,
-        password: datos.contrasena,
+        email: mail,
+        password: pass,
         id: 0,
         career: "",
-        groups: [], 
+        groups: [],
         avatar: { id: 0, sexo: "", hairColor: "", hairStyle: "", skinColor: "" },
-        interests: [], 
-        name: "", 
-        lastName: "", 
+        interests: [],
+        name: "",
+        lastName: "",
         status: "on"
       })
       history.push("/createavatar")
@@ -64,12 +57,13 @@ const handleInputChange = (event: any) => {
       <Card className="centered-card">
         <div className="card-content">
           <h2 className="login-title">Use your university's credentials to log in</h2>
-          <input id="correo" onChange={handleInputChange} name="correo"  />
-          <input id="contrasena" onChange={handleInputChange} name="contrasena" type="password" />
-        </div>
-        <button onClick={onLogin}>Login</button>
+          <Input id="login-email" label="Email" onChange={changeMail} ></Input>
+          <Input id="login-password" label="Password" onChange={changePass} type="password"></Input>
+       </div>
         <Link to="/select-interest">Go to</Link>
       </Card>
+      <img src="/images/friends.png"></img>
+      <button onClick={onLogin}>LOG IN</button>
     </div>
   </>
 }

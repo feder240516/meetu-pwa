@@ -44,12 +44,6 @@ export default function App() {
   const onChange = (e: any) => {
     setIsChecked(!isChecked);
   }
-  //llamar register profile
-  //status
-  //intereses vacios
-  //grupos vacios 
-  //llamar registerUser
-
   const onNext = () => {
     const notNullUserProfile = userProfile as unknown as RegisterUserRequest;
     registerUser({
@@ -76,9 +70,6 @@ export default function App() {
     <div className="App">
       <h1>Create your avatar!</h1>
       <img src={checkSelection()} />
-      <input id="next" value="NEXT" type="submit" onClick={() => {
-                onNext();
-              }}/>
       <Card className="centered-card">
         <div className="grid">
           <div className="radio-btn-container grid-12">
@@ -236,7 +227,6 @@ export default function App() {
                   setSkin("Tan");
                 }}
               >
-
                 <input
                   type="radio"
                   value={skinColor}
@@ -262,6 +252,9 @@ export default function App() {
             </div>
           </div>
         </div>
+        <input id="next" value="NEXT" type="submit" onClick={() => {
+                onNext();
+              }}/>
       </Card>
       
     </div>

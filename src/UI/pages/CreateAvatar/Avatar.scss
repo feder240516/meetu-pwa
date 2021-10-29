@@ -49,8 +49,8 @@ input[type='radio']::after {
     content: '';
     display: inline-block;
     visibility: visible;
-    margin: 1vw;
-    padding: 1vw;
+    margin: 0.01vw;
+    padding: 0.01vw;
 }
 input[type='radio']:checked:after {
     display: none;
@@ -61,8 +61,8 @@ input[type='radio']:checked:after {
     content: '';
     display: inline-block;
     visibility: visible;
-    margin: 1vw;
-    padding: 1vw;
+    margin: 0.01vw;
+    padding: 0.01vw;
 }
 #fem::after {
     background-color: #eb3aa7;
