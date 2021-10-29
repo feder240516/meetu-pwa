@@ -4,6 +4,7 @@ import ProfileService from "../../../Data/Services/ProfileService";
 import Card from "../../components/Card/Card";
 import Input from "../../components/Input/Input";
 import "./Login.scss";
+import { Link } from "react-router-dom";
 // import { Card, CardContent, CardHeader } from "@mui/material";
 const routes = [
   {
@@ -33,6 +34,7 @@ export default function Login() {
           <Input id="login-password" label="Password:" type="password"/>
         </div>
         <button onClick={onLogin}>Login</button>
+        <Link to="/select-interest">Go to</Link>
       </Card>
     </div>
   </>
