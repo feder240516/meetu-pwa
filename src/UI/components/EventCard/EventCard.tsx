@@ -25,7 +25,7 @@ const EventCard: React.FC<IProps> = ({children, className, peopleEvent, onClick}
       </div>
       <div className="event-card-content">
         <p className="event-card-title">Robocup</p>
-        <p className="event-card-text">{dayjs(time).format('HH:mm')} @ {place}</p>
+        <p className="event-card-text">{dayjs(time).format('HH:mma')} @ {place}</p>
       </div>
     </div>
   )

@@ -44,7 +44,7 @@ const CreateEvent: React.FC = () => {
     const newEvent: CreatePeopleEventByInterestRequest = {
       interest: interest || '',
       place: place || '',
-      date: `${newDate}`,
+      date: `${newDate} ${newTime}`,
       message,
       time: '30mn',
     }
@@ -73,6 +73,11 @@ const CreateEvent: React.FC = () => {
               height="86px"
             />
           </div>
+          <Input
+            id="message-for-event"
+            label="Add a message"
+            onChange={(value) => setMessage(value)}
+          />
           <SelectInput
             label="Choose an interest"
             options={user?.interests.map(interest => ({
@@ -101,17 +106,13 @@ const CreateEvent: React.FC = () => {
               />
             </div>
           </div>
-          <Input
-            id="message-for-event"
-            label="Add a message"
-          />
         </div>
       </Card>
       <div className="create-event__create-button-wrapper">
         <button
           className="create-event__create-button"
           onClick={createEvent}
-          disabled={!interest || !place || !date || !time}
+          disabled={!interest || !place || !date || !time || !message}
         >
           Create Event
         </button>

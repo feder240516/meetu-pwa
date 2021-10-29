@@ -9,7 +9,7 @@ export default function getPeopleEventMapper(response: GetPeopleEventsResponse):
    * @param timeString hh:mmPM
    */
   function getDateFromString(dateString: string): Date {
-    return dayjs(dateString).toDate();
+    return dayjs(dateString, 'YYYY-MM-DD HH:mma').toDate();
   }
   return {
     id: response.id,
