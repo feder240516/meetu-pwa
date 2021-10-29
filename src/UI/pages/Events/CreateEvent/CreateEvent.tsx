@@ -6,43 +6,35 @@ import './CreateEvent.scss';
 import DateModal from "../../../components/DateModal/DateModal";
 import TimeModal from "../../../components/TimeModal/TimeModal";
 import { useHistory } from "react-router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CreatePeopleEventByInterestRequest } from "../../../../Core/Entities/Service/Create/CreatePeopleEvents";
 import DayjsUtils from "@date-io/dayjs";
 import dayjs from 'dayjs'
 import EventsService from "../../../../Data/Services/EventsService";
+import { UserContext } from "../../../../Data/Context/UserContext/UserContextProvider";
 
 const CreateEvent: React.FC = () => {
   const history = useHistory();
+  const [user, setUser] = useContext(UserContext);
   const [interest, setInterest] = useState<string | null>(null)
   const [place, setPlace] = useState<string | null>(null)
   const [date, setDate] = useState<Date | null>(null)
   const [time, setTime] = useState<Date | null>(null)
   const [message, setMessage] = useState("")
   const myInterests = [
-    { value: 1, label: 'Football' },
-    { value: 2, label: 'Basketball' },
-    { value: 3, label: 'Baseball' },
-    { value: 4, label: 'Hockey' },
-    { value: 5, label: 'Soccer' },
-    { value: 6, label: 'Football' },
-    { value: 7, label: 'Basketball' },
-    { value: 8, label: 'Baseball' },
-    { value: 9, label: 'Hockey' },
-    { value: 10, label: 'Soccer' },
-    { value: 11, label: 'Football' },
-    { value: 12, label: 'Basketball' },
-    { value: 13, label: 'Baseball' },
-    { value: 14, label: 'Hockey' },
-    { value: 15, label: 'Soccer' },
+    { value: 'Football', label: 'Football' },
+    { value: 'Basketball', label: 'Basketball' },
+    { value: 'Baseball', label: 'Baseball' },
+    { value: 'Hockey', label: 'Hockey' },
+    { value: 'Soccer', label: 'Soccer' },
   ]
 
   const places = [
-    { value: 1, label: 'B Building' },
-    { value: 2, label: 'C Building' },
-    { value: 3, label: 'Green point' },
-    { value: 4, label: 'Restaurant' },
-    { value: 5, label: 'Audiovisuals' },
+    { value: 'B Building', label: 'B Building' },
+    { value: 'C Building', label: 'C Building' },
+    { value: 'Green point', label: 'Green point' },
+    { value: 'Restaurant', label: 'Restaurant' },
+    { value: 'Audiovisuals', label: 'Audiovisuals' },
   ]
 
   const createEvent = () => {
@@ -52,9 +44,9 @@ const CreateEvent: React.FC = () => {
     const newEvent: CreatePeopleEventByInterestRequest = {
       interest: interest || '',
       place: place || '',
-      date: newDate,
+      date: `${newDate} ${newTime}`,
       message,
-      time: newTime,
+      time: '30mn',
     }
     console.log({ newEvent });
     EventsService().createEventByInterest(newEvent)
@@ -81,9 +73,17 @@ const CreateEvent: React.FC = () => {
               height="86px"
             />
           </div>
+          <Input
+            id="message-for-event"
+            label="Add a message"
+            onChange={(value) => setMessage(value)}
+          />
           <SelectInput
             label="Choose an interest"
-            options={myInterests}
+            options={user?.interests.map(interest => ({
+              label: interest.name,
+              value: interest.name,
+            })) || []}
             onChange={(value) => setInterest(value)}
           />
           <SelectInput
@@ -106,17 +106,13 @@ const CreateEvent: React.FC = () => {
               />
             </div>
           </div>
-          <Input
-            id="message-for-event"
-            label="Add a message"
-          />
         </div>
       </Card>
       <div className="create-event__create-button-wrapper">
         <button
           className="create-event__create-button"
           onClick={createEvent}
-          disabled={!interest || !place || !date || !time}
+          disabled={!interest || !place || !date || !time || !message}
         >
           Create Event
         </button>

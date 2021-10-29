@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import Map from './UI/pages/Map/Map';
 import Interests from './UI/pages/Interests/Interests';
@@ -71,7 +71,7 @@ class App extends Component {
               body={this.state.notification.body}
             /> : null
         }
-
+        <Switch>
         <Route
             exact
             path="/welcome"
@@ -99,7 +99,7 @@ class App extends Component {
               </React.Fragment>
             )}
           />
-        <div>
+        
           <Route
             exact
             path="/"
@@ -218,9 +218,8 @@ class App extends Component {
              </React.Fragment>
             )}
           />
+          </Switch>
           <BottomNav />
-        </div>
-        
       </Router>
     );
   }

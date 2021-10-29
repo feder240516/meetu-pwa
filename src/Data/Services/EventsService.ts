@@ -24,14 +24,14 @@ export default function EventsService () {
 
   const createEventByInterest = async (newEvent: CreatePeopleEventByInterestRequest) => {
     const response = await AxiosServer.post<CreatePeopleEventResponse>(`/university/events`, {
-      body: newEvent,
+      ...newEvent,
     });
     return response;
   }
 
   const createEventByGroup = async (newEvent: CreatePeopleEventByGroupRequest) => {
     const response = await AxiosServer.post<CreatePeopleEventResponse>(`/university/events`, {
-      body: newEvent,
+      ...newEvent,
     });
     return response;
   }

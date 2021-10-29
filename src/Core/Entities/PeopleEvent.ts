@@ -5,4 +5,6 @@ export default interface PeopleEvent {
   duration: string;
   place: string;
   image?: string;
+  group?: string;
+  interest?: string;
 }
