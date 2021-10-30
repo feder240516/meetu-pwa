@@ -69,7 +69,7 @@ export default function App() {
   const [isChecked, setIsChecked] = useState(false);
   
   return (
-    <div className="App">
+    <div className="Profile">
       <h1>Your Profile</h1>
       <img src={checkSelection()} />
 

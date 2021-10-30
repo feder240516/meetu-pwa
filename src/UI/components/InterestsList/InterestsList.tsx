@@ -6,7 +6,7 @@ import InterestItem from '../InterestItem/InterestItem';
 const InterestsList = (props: any) => {
     return (
         <div className="InterestsList">
-            <ul>
+            <ul className="InterestList-Inner">
                 {props.interests.map((interest: any, i: number) => 
                     <InterestItem 
                         key={i}

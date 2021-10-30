@@ -59,6 +59,8 @@ const SelectInterest = (props: any) => {
 
     const onContinue = () => {
         updateInterests();
+        history.push("/profile");
+        console.log(userProfile);
     }
 
     const updateInterests = async () => {
