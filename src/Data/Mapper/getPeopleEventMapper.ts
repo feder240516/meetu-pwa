@@ -9,7 +9,7 @@ export default function getPeopleEventMapper(response: GetPeopleEventsResponse):
    * @param timeString hh:mmPM
    */
   function getDateFromString(dateString: string): Date {
-    return dayjs(dateString).toDate();
+    return dayjs(dateString, 'YYYY-MM-DD hh:mma').toDate();
   }
   return {
     id: response.id,
@@ -17,6 +17,8 @@ export default function getPeopleEventMapper(response: GetPeopleEventsResponse):
     place: response.place,
     time: getDateFromString(response.date),
     duration: response.time,
-    image: '/images/event-covers/Robocup.png'
+    image: `/images/event-covers/${(response.title || response.interest || '').toLowerCase()}.png`,
+    group: response.title,
+    interest: response.interest,
   }
 }

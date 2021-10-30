@@ -1,7 +1,9 @@
 import React, { Component, createRef } from 'react';
 import { withRouter } from "react-router-dom";
 import gsap from "gsap";
+import qs from "qs";
 import "./Map.scss";
+import { UserContext } from '../../../Data/Context/UserContext/UserContextProvider';
 
 const campusPanningOffsetX: number = 300;
 const campusPanningOffsetY: number = 400;
@@ -23,10 +25,11 @@ interface IState {
 
   deltaX: number,
   deltaY: number,
-  mouseDown: boolean
+  mouseDown: boolean,
 }
 
 class Map extends Component<IProps, IState> {
+  static contextType = UserContext;
   canvasParentRef: any;
   canvasParent: any;
 
@@ -44,6 +47,8 @@ class Map extends Component<IProps, IState> {
   coordinates: any;
   eventColliders: any;
 
+  animationLoop: any;
+
   constructor(props: IProps) {
     super(props);
     this.canvasParentRef = createRef();
@@ -56,6 +61,7 @@ class Map extends Component<IProps, IState> {
     this.campusHeight = 681 * 1.2;
 
     this.needsResize = false;
+    this.animationLoop = null;
 
     this.coordinates = {
       latitude: 0,
@@ -78,6 +84,32 @@ class Map extends Component<IProps, IState> {
       //latitude: 0,
       //longitude: 0
     }
+  }
+
+  getLocationOfPlace = (place: string) => {
+    const places: any = {
+      "B Building": {
+        x: 120,
+        y: 80,
+      },
+      "C Building": {
+        x: 150,
+        y: 10,
+      },
+      "Green Point": {
+        x: -120,
+        y: 30,
+      },
+      "Restaurant": {
+        x: 160,
+        y: 800,
+      },
+      "Audiovisuals": {
+        x: -200,
+        y: 200,
+      },
+    }
+    return places[place];
   }
 
   loadImage = (imagePath: string) => new Promise<HTMLImageElement>((resolve, reject) => {
@@ -107,8 +139,12 @@ class Map extends Component<IProps, IState> {
   }
 
   componentDidMount = async () => {
+    if(this.context[0] === null) {
+      this.props.history.push('/login');
+    } else {
+      const {avatar} = this.context[0];
     this.images["campus"] = await this.loadImage("/images/unisabana-map.png");
-    this.images["avatar"] = await this.loadImage("/images/avatar.png");
+    this.images["avatar"] = await this.loadImage(`/images/${avatar.sexo}${avatar.skinColor}${avatar.hairColor}${avatar.hairStyle}.png`);
     this.images["location-icon"] = await this.loadImage("/images/Location_marker (1).png");
 
     this.canvasParent = this.canvasParentRef.current;
@@ -164,7 +200,10 @@ class Map extends Component<IProps, IState> {
       this.getPosition();
     }, 1000);*/
 
+    this.centerEvent("eventC");
+
     window.requestAnimationFrame(this.update);
+  }
   }
 
   setPath = () => {
@@ -188,6 +227,49 @@ class Map extends Component<IProps, IState> {
     let campusOffsetX = this.canvasMap.width / 2 - this.campusWidth / 2;
     let campusOffsetY = this.canvasMap.height / 2 - this.campusHeight / 2;
     this.setState({ campusOffsetX, campusOffsetY })
+  }
+
+  centerEvent = (eventId: string) => {
+    const { positions } = this.state;
+
+    const parsedQuery = qs.parse(this.props.location.search.slice(1));
+
+    if (parsedQuery?.location) {
+      const { x, y } = this.getLocationOfPlace(parsedQuery.location as string);
+
+      let offsetX = x - this.canvasMap.width / 2 + 10;
+      let offsetY = y - this.canvasMap.height / 2 + 40;
+
+      const offsetAnimation = {
+        offsetXAcc: 0,
+        offsetYAcc: 0,
+      }
+
+      let tempOffsetX = 0;
+      let tempOffsetY = 0
+
+      gsap.to(offsetAnimation, {
+        offsetXAcc: offsetX,
+        offsetYAcc: offsetY,
+        duration: 1,
+        delay: 0.25,
+        ease: "power3.inOut",
+        onUpdate: () => {
+          const newPositions = { ...this.state.positions };
+          Object.keys(newPositions).forEach(id => {
+            newPositions[id].x -= offsetAnimation.offsetXAcc - tempOffsetX;
+            newPositions[id].y -= offsetAnimation.offsetYAcc - tempOffsetY;
+          })
+
+          tempOffsetX = offsetAnimation.offsetXAcc;
+          tempOffsetY = offsetAnimation.offsetYAcc;
+
+          if (this.animationLoop) {
+            this.setState({ positions: newPositions });
+          }
+        }
+      })
+    }
   }
 
   centerAvatar = () => {
@@ -225,8 +307,8 @@ class Map extends Component<IProps, IState> {
       this.images["avatar"], 
       this.state.positions["avatar"].x + this.coordinates.latitude + offsetX, 
       this.state.positions["avatar"].y + this.coordinates.longitude + offsetY, 
-      this.images["avatar"].width * 0.65, 
-      this.images["avatar"].height * 0.65
+      this.images["avatar"].width * 0.35, 
+      this.images["avatar"].height * 0.35
     );
 
     this.drawLocationPin(
@@ -256,7 +338,14 @@ class Map extends Component<IProps, IState> {
       "Evento C"
     )
 
-    window.requestAnimationFrame(this.update);
+    this.animationLoop = window.requestAnimationFrame(this.update);
+  }
+
+  componentWillUnmount() {
+    if(this.animationLoop) {
+      window.cancelAnimationFrame(this.animationLoop);
+      this.animationLoop = null;
+    }
   }
 
   clear = () => {

@@ -7,7 +7,8 @@ import AxiosServer from "../../../../Data/Http/AxiosServer";
 import GroupsService from "../../../../Data/Services/InterestsService";
 import { groups } from "../../../../Data/Static/Groups";
 import RoundButton from "../../../components/RoundButton/RoundButton";
-
+import dayjs from "dayjs";
+import './EventDetail.scss';
 interface IProps {
 
 }
@@ -25,12 +26,17 @@ const EventDetail: React.FC<IProps> = (props: any) => {
 
   const idEvent = props?.match?.params?.idEvent;
 
-  const [participants, setParticipants] = useState([]);
+  const [participants, setParticipants] = useState<string[]>([]);
 
   useEffect(() => {
     const event = allEvents.filter(event => event.id.toString() === idEvent)[0];
     if (event) {
       setThisEvent(event);
+      setParticipants([
+        "John Doe",
+        "Pedro Gomez",
+        "Luis Miguel",
+      ])
     }
   }, [idEvent, allEvents]);
 
@@ -77,18 +83,22 @@ const EventDetail: React.FC<IProps> = (props: any) => {
   // }
 
   const isMember = () => {
-  //   let isMember = false;
+    //   let isMember = false;
 
-  //   if (userProfile) {
-  //     userProfile.groups.forEach((g: any) => {
-  //       if (group.title === g.title) {
-  //         isMember = true;
-  //       }
-  //     })
-  //   }
+    //   if (userProfile) {
+    //     userProfile.groups.forEach((g: any) => {
+    //       if (group.title === g.title) {
+    //         isMember = true;
+    //       }
+    //     })
+    //   }
 
-  //   return isMember;
+    //   return isMember;
     return false;
+  }
+
+  const locateInMap = () => {
+    history.push(`/?location=${thisEvent?.place}`)
   }
 
   useEffect(() => {
@@ -100,30 +110,40 @@ const EventDetail: React.FC<IProps> = (props: any) => {
   }, [])
 
   return (
-    <div className="SingleGroup">
+    <div className="SingleEvent">
       <div
-        className="GroupImg"
+        className="EventImg"
         style={{
-          backgroundImage: `url(${""})`,
+          backgroundImage: `url(${thisEvent?.image})`,
           backgroundSize: "cover"
         }}
       >
-        <Link to="/groups">
-          <img src="/images/arrow_back_ios_24px_outlined.svg"></img>
-        </Link>
+        <img src="/images/arrow_back_ios_24px_outlined.svg" onClick={() => history.goBack()}></img>
       </div>
-      <div className="SingleGroupContainer">
-        <h1 className="-highlighted">{thisEvent ? thisEvent.name : ""}</h1>
-        <p>{thisEvent ? thisEvent.name : ""}</p>
-        <RoundButton
-          label={isMember() ? "You are a member of this group!" : "Ask to join"}
+      <div className="SingleEventContainer">
+        <h1 className="-highlighted">{thisEvent?.name}</h1>
+        <hr />
+        <p className="event-headline"> 
+          <i className="material-icons">event</i> 
+          <span>{dayjs(thisEvent?.time).format('MMM DD, YYYY - hh:mma')}</span>
+        </p>
+        <p className="event-headline bot-margin"> 
+          <i className="material-icons">location_on</i> 
+          <span>{thisEvent?.place}</span> 
+          <RoundButton
+          label={"Go to location"}
           backgroundColor={isMember() ? "#4D1568" : "#EB3AA7"}
           height="0.75rem"
           width={isMember() ? "150px" : "120px"}
           customStyle={isMember() ? { pointerEvents: "none" } : {}}
-          // onClick={(e: any) => { join() }}
+          onClick={(e: any) => { locateInMap() }}
         />
-        <h1>Paticipants</h1>
+        </p>
+        <hr />
+        
+        <h1>Assistants</h1>
+        
+        
         <ul>
           {
             participants.map((participant: string, i: number) => {

@@ -15,7 +15,11 @@ export default function EventsService () {
 
   const getEventsByGroup = async (params: GetPeopleEventsByGroupRequest) => {
     let url = `/events/groups?`
-    params.groups.forEach(group => {
+    const groups = [...params.groups];
+    if (groups.length === 0) {
+      groups.push(-1);
+    }
+    groups.forEach(group => {
       url += `Params=${group}&`
     })
     const response = await AxiosServer.get<GetPeopleEventsResponse[]>(url);
@@ -24,14 +28,14 @@ export default function EventsService () {
 
   const createEventByInterest = async (newEvent: CreatePeopleEventByInterestRequest) => {
     const response = await AxiosServer.post<CreatePeopleEventResponse>(`/university/events`, {
-      body: newEvent,
+      ...newEvent,
     });
     return response;
   }
 
   const createEventByGroup = async (newEvent: CreatePeopleEventByGroupRequest) => {
     const response = await AxiosServer.post<CreatePeopleEventResponse>(`/university/events`, {
-      body: newEvent,
+      ...newEvent,
     });
     return response;
   }
