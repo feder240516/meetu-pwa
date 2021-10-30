@@ -102,7 +102,7 @@ export default function App() {
             </div>
             
           </div>
-          <div className="grid-6">
+          <div className="grid-6 status">
             <SelectInput
               label="Status"
               options={state}
