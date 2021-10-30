@@ -1,6 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { withRouter } from "react-router-dom";
 import gsap from "gsap";
+import qs from "qs";
 import "./Map.scss";
 
 const campusPanningOffsetX: number = 300;
@@ -78,6 +79,32 @@ class Map extends Component<IProps, IState> {
       //latitude: 0,
       //longitude: 0
     }
+  }
+
+  getLocationOfPlace = (place: string) => {
+    const places: any = {
+      "B Building": {
+        x: 120,
+        y: 80,
+      },
+      "C Building": {
+        x: 150,
+        y: 10,
+      },
+      "Green Point": {
+        x: -120,
+        y: 30,
+      },
+      "Restaurant": {
+        x: 160,
+        y: -80,
+      },
+      "Audiovisuals": {
+        x: 0,
+        y: 0,
+      },
+    }
+    return places[place];
   }
 
   loadImage = (imagePath: string) => new Promise<HTMLImageElement>((resolve, reject) => {
