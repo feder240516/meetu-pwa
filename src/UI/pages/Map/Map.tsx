@@ -23,7 +23,7 @@ interface IState {
 
   deltaX: number,
   deltaY: number,
-  mouseDown: boolean
+  mouseDown: boolean,
 }
 
 class Map extends Component<IProps, IState> {
@@ -44,6 +44,8 @@ class Map extends Component<IProps, IState> {
   coordinates: any;
   eventColliders: any;
 
+  animationLoop: any;
+
   constructor(props: IProps) {
     super(props);
     this.canvasParentRef = createRef();
@@ -56,6 +58,7 @@ class Map extends Component<IProps, IState> {
     this.campusHeight = 681 * 1.2;
 
     this.needsResize = false;
+    this.animationLoop = null;
 
     this.coordinates = {
       latitude: 0,
@@ -164,6 +167,8 @@ class Map extends Component<IProps, IState> {
       this.getPosition();
     }, 1000);*/
 
+    this.centerEvent("eventC");
+
     window.requestAnimationFrame(this.update);
   }
 
@@ -188,6 +193,42 @@ class Map extends Component<IProps, IState> {
     let campusOffsetX = this.canvasMap.width / 2 - this.campusWidth / 2;
     let campusOffsetY = this.canvasMap.height / 2 - this.campusHeight / 2;
     this.setState({ campusOffsetX, campusOffsetY })
+  }
+
+  centerEvent = (eventId: string) => {
+    const { positions } = this.state;
+    const {x, y} = positions[eventId];
+
+    let offsetX = x - this.canvasMap.width / 2 + 10;
+    let offsetY = y - this.canvasMap.height / 2 + 40;
+
+    const offsetAnimation = {
+      offsetXAcc: 0,
+      offsetYAcc: 0,
+    }
+
+    let tempOffsetX = 0;
+    let tempOffsetY = 0
+
+    gsap.to(offsetAnimation, {
+      offsetXAcc: offsetX,
+      offsetYAcc: offsetY,
+      duration: 1,
+      onUpdate: () => {
+        const newPositions = {...this.state.positions};
+        Object.keys(newPositions).forEach(id => {
+          newPositions[id].x -= offsetAnimation.offsetXAcc - tempOffsetX;
+          newPositions[id].y -= offsetAnimation.offsetYAcc - tempOffsetY;
+        })
+    
+        tempOffsetX = offsetAnimation.offsetXAcc;
+        tempOffsetY = offsetAnimation.offsetYAcc;
+
+        if(this.animationLoop) {
+          this.setState({ positions: newPositions });
+        }
+      }
+    })
   }
 
   centerAvatar = () => {
@@ -256,7 +297,14 @@ class Map extends Component<IProps, IState> {
       "Evento C"
     )
 
-    window.requestAnimationFrame(this.update);
+    this.animationLoop = window.requestAnimationFrame(this.update);
+  }
+
+  componentWillUnmount() {
+    if(this.animationLoop) {
+      window.cancelAnimationFrame(this.animationLoop);
+      this.animationLoop = null;
+    }
   }
 
   clear = () => {
