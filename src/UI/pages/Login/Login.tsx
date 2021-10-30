@@ -60,7 +60,6 @@ export default function Login() {
           <Input id="login-email" label="Email" onChange={changeMail} ></Input>
           <Input id="login-password" label="Password" onChange={changePass} type="password"></Input>
        </div>
-        <Link to="/select-interest">Go to</Link>
       </Card>
       <img src="/images/friends.png"></img>
       <button onClick={onLogin}>LOG IN</button>
