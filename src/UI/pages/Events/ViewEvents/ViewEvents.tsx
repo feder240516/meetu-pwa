@@ -65,20 +65,20 @@ const ViewEvents: React.FC = () => {
       <h1 className="view-events-title">Events</h1>
       <Card>
         <h4 className="view-events-subtitle">Your events</h4>
-        {todayEvents.map(thisEvent => (
+        {[...todayEvents, ...eventsAround].map(thisEvent => (
           <div className="event-card-margin-wrapper" key={thisEvent.id}>
             <EventCard peopleEvent={thisEvent} onClick={() => navigateToEventDetails(thisEvent)} />
           </div>
         ))}
       </Card>
-      <Card>
+      {/* <Card>
         <h4 className="view-events-subtitle">Events around you</h4>
         {eventsAround.map(thisEvent => (
           <div className="event-card-margin-wrapper" key={thisEvent.id}>
             <EventCard peopleEvent={thisEvent} onClick={() => navigateToEventDetails(thisEvent)} />
           </div>
         ))}
-      </Card>
+      </Card> */}
       <CreateButton text="Create new event" onClick={navigateToCreateEvent} />
     </div>
   )
