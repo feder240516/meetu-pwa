@@ -1,6 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { withRouter } from "react-router-dom";
 import gsap from "gsap";
+import qs from "qs";
 import "./Map.scss";
 
 const campusPanningOffsetX: number = 300;
@@ -81,6 +82,32 @@ class Map extends Component<IProps, IState> {
       //latitude: 0,
       //longitude: 0
     }
+  }
+
+  getLocationOfPlace = (place: string) => {
+    const places: any = {
+      "B Building": {
+        x: 120,
+        y: 80,
+      },
+      "C Building": {
+        x: 150,
+        y: 10,
+      },
+      "Green Point": {
+        x: -120,
+        y: 30,
+      },
+      "Restaurant": {
+        x: 160,
+        y: 800,
+      },
+      "Audiovisuals": {
+        x: -200,
+        y: 200,
+      },
+    }
+    return places[place];
   }
 
   loadImage = (imagePath: string) => new Promise<HTMLImageElement>((resolve, reject) => {
@@ -197,38 +224,45 @@ class Map extends Component<IProps, IState> {
 
   centerEvent = (eventId: string) => {
     const { positions } = this.state;
-    const {x, y} = positions[eventId];
 
-    let offsetX = x - this.canvasMap.width / 2 + 10;
-    let offsetY = y - this.canvasMap.height / 2 + 40;
+    const parsedQuery = qs.parse(this.props.location.search.slice(1));
 
-    const offsetAnimation = {
-      offsetXAcc: 0,
-      offsetYAcc: 0,
-    }
+    if (parsedQuery?.location) {
+      const { x, y } = this.getLocationOfPlace(parsedQuery.location as string);
 
-    let tempOffsetX = 0;
-    let tempOffsetY = 0
+      let offsetX = x - this.canvasMap.width / 2 + 10;
+      let offsetY = y - this.canvasMap.height / 2 + 40;
 
-    gsap.to(offsetAnimation, {
-      offsetXAcc: offsetX,
-      offsetYAcc: offsetY,
-      duration: 1,
-      onUpdate: () => {
-        const newPositions = {...this.state.positions};
-        Object.keys(newPositions).forEach(id => {
-          newPositions[id].x -= offsetAnimation.offsetXAcc - tempOffsetX;
-          newPositions[id].y -= offsetAnimation.offsetYAcc - tempOffsetY;
-        })
-    
-        tempOffsetX = offsetAnimation.offsetXAcc;
-        tempOffsetY = offsetAnimation.offsetYAcc;
-
-        if(this.animationLoop) {
-          this.setState({ positions: newPositions });
-        }
+      const offsetAnimation = {
+        offsetXAcc: 0,
+        offsetYAcc: 0,
       }
-    })
+
+      let tempOffsetX = 0;
+      let tempOffsetY = 0
+
+      gsap.to(offsetAnimation, {
+        offsetXAcc: offsetX,
+        offsetYAcc: offsetY,
+        duration: 1,
+        delay: 0.25,
+        ease: "power3.inOut",
+        onUpdate: () => {
+          const newPositions = { ...this.state.positions };
+          Object.keys(newPositions).forEach(id => {
+            newPositions[id].x -= offsetAnimation.offsetXAcc - tempOffsetX;
+            newPositions[id].y -= offsetAnimation.offsetYAcc - tempOffsetY;
+          })
+
+          tempOffsetX = offsetAnimation.offsetXAcc;
+          tempOffsetY = offsetAnimation.offsetYAcc;
+
+          if (this.animationLoop) {
+            this.setState({ positions: newPositions });
+          }
+        }
+      })
+    }
   }
 
   centerAvatar = () => {
