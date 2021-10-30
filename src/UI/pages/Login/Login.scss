@@ -1,7 +1,10 @@
+
 .login {
+  text-align: center;
   .centered-card {
     margin: 72px auto;
     width: 75vw;
+    text-align: left;
     h2 {
       text-align: center;
     }
@@ -10,4 +13,15 @@
   .login-title {
     margin-bottom: 48px;
   }
+}
+
+button{
+  background-color: #EB3AA7;
+  color: white;
+  border: none;
+  padding: 3vw 2vh ;
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: x-large;
+  margin-top: 1vh;
 }

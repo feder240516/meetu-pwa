@@ -125,7 +125,7 @@ const EventDetail: React.FC<IProps> = (props: any) => {
         <hr />
         <p className="event-headline"> 
           <i className="material-icons">event</i> 
-          <span>{dayjs(thisEvent?.time).format('MMM DD, YYYY - HH:mma')}</span>
+          <span>{dayjs(thisEvent?.time).format('MMM DD, YYYY - hh:mma')}</span>
         </p>
         <p className="event-headline bot-margin"> 
           <i className="material-icons">location_on</i> 

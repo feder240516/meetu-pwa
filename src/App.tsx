@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Map from './UI/pages/Map/Map';
 import Interests from './UI/pages/Interests/Interests';
@@ -15,6 +15,7 @@ import BottomNav from './UI/components/BottomNav/BottomNav';
 import Login from './UI/pages/Login/Login';
 import Welcome from './UI/pages/Welcome/Welcome';
 import CreateAvatar from './UI/pages/CreateAvatar/CreateAvatar';
+import Profile from './UI/pages/Profile/Profile';
 import ViewEvents from './UI/pages/Events/ViewEvents/ViewEvents';
 import CreateEvent from './UI/pages/Events/CreateEvent/CreateEvent';
 import EventDetail from './UI/pages/Events/EventDetail/EventDetail';
@@ -30,7 +31,7 @@ class App extends Component {
       title: "",
       body: ""
     }
-  } 
+  }
 
   componentDidMount = async () => {
     this.setState({
@@ -40,7 +41,7 @@ class App extends Component {
         body: "This is a notification"
       }
     })
-    
+
     /*await Notification.requestPermission();
     
     const token = await getToken();
@@ -65,14 +66,14 @@ class App extends Component {
     return (
       <Router>
         {
-          this.state.show ? 
-            <ReactNotificationComponent 
+          this.state.show ?
+            <ReactNotificationComponent
               title={this.state.notification.title}
               body={this.state.notification.body}
             /> : null
         }
         <Switch>
-        <Route
+          <Route
             exact
             path="/welcome"
             render={(props) => (
@@ -81,7 +82,7 @@ class App extends Component {
               </React.Fragment>
             )}
           />
-        <Route
+          <Route
             exact
             path="/login"
             render={(props) => (
@@ -99,127 +100,134 @@ class App extends Component {
               </React.Fragment>
             )}
           />
-        
           <Route
-            exact
             path="/"
             render={(props) => (
-              <React.Fragment>
-                <Map />
-              </React.Fragment>
-            )}
-          />
-          <Route
-            exact
-            path="/events"
-            render={(props) => (
-              <React.Fragment>
-                <ViewEvents />
-              </React.Fragment>
-            )}
-          />
-          <Route
-            exact
-            path="/events/create"
-            render={(props) => (
-              <React.Fragment>
-                <CreateEvent />
-              </React.Fragment>
-            )}
-          />
-          <Route
-            exact
-            path="/events/:idEvent"
-            render={(props) => (
-              <React.Fragment>
-                <EventDetail {...props}/>
-              </React.Fragment>
-            )}
-          />
-          <Route
-            exact
-            path="/interests"
-            render={(props) => (
-              <React.Fragment>
-                <Interests />
-              </React.Fragment>
+              <>
+                <Switch>
+                  <Route
+                    exact
+                    path="/profile"
+                    render={(props) => (
+                      <React.Fragment>
+                        <Profile />
+                      </React.Fragment>
+                    )}
+                  />
+
+                  <Route
+                    exact
+                    path="/"
+                    render={(props) => (
+                      <React.Fragment>
+                        <Map />
+                      </React.Fragment>
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/events"
+                    render={(props) => (
+                      <React.Fragment>
+                        <ViewEvents />
+                      </React.Fragment>
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/events/create"
+                    render={(props) => (
+                      <React.Fragment>
+                        <CreateEvent />
+                      </React.Fragment>
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/events/:idEvent"
+                    render={(props) => (
+                      <React.Fragment>
+                        <EventDetail {...props} />
+                      </React.Fragment>
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/interests"
+                    render={(props) => (
+                      <React.Fragment>
+                        <Interests />
+                      </React.Fragment>
+                    )}
+                  />
+
+                  <Route
+                    exact
+                    path="/interest/:idInterest"
+                    render={(props) => (
+                      <React.Fragment>
+                        <Interest />
+                      </React.Fragment>
+                    )}
+                  />
+
+                  <Route
+                    exact
+                    path="/select-interest"
+                    render={(props) => (
+                      <React.Fragment>
+                        <SelectInterest />
+                      </React.Fragment>
+                    )}
+                  />
+
+                  <Route
+                    exact
+                    path="/your-groups"
+                    render={(props) => (
+                      <React.Fragment>
+                        <YourGroups />
+                      </React.Fragment>
+                    )}
+                  />
+
+                  <Route
+                    exact
+                    path="/your-groups/:idGroup"
+                    render={(props) => (
+                      <React.Fragment>
+                        <SingleYourGroup />
+                      </React.Fragment>
+                    )}
+                  />
+
+                  <Route
+                    exact
+                    path="/groups"
+                    render={(props) => (
+                      <React.Fragment>
+                        <Groups />
+                      </React.Fragment>
+                    )}
+                  />
+
+                  <Route
+                    exact
+                    path="/groups/:idGroup"
+                    render={(props) => (
+                      <React.Fragment>
+                        <SingleGroup />
+                      </React.Fragment>
+                    )}
+                  />
+                </Switch>
+
+                <BottomNav />
+              </>
             )}
           />
 
-          <Route
-            exact
-            path="/interest/:idInterest"
-            render={(props) => (
-              <React.Fragment>
-                <Interest />
-              </React.Fragment>
-            )}
-          />
-
-        <Route
-            exact
-            path="/select-interest"
-            render={(props) => (
-              <React.Fragment>
-                <SelectInterest />
-              </React.Fragment>
-            )}
-          />
-
-        <Route
-            exact
-            path="/your-groups"
-            render={(props) => (
-              <React.Fragment>
-                <YourGroups />
-              </React.Fragment>
-            )}
-          />
-
-          <Route
-            exact
-            path="/your-groups/:idGroup"
-            render={(props) => (
-              <React.Fragment>
-                <SingleYourGroup />
-              </React.Fragment>
-            )}
-          /> 
-
-          <Route
-            exact
-            path="/groups"
-            render={(props) => (
-              <React.Fragment>
-                <Groups />
-              </React.Fragment>
-            )}
-          />
-
-          <Route
-            exact
-            path="/groups/:idGroup"
-            render={(props) => (
-              <React.Fragment>
-                <SingleGroup />
-              </React.Fragment>
-            )}
-          />
-
-          <Route
-            exact
-            path="/profile"
-            render={(props) => (
-              <React.Fragment>
-                Profile
-                <div style={{marginTop:"1rem", padding: "0rem 1rem"}}>
-                <input readOnly style={{display: "block", width: "100%", height: "50px"}} type="text" value={this.state.token}/>
-                </div>
-             </React.Fragment>
-            )}
-          />
-          </Switch>
-          <BottomNav />
+        </Switch>
       </Router>
     );
   }

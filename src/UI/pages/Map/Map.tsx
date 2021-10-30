@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import gsap from "gsap";
 import qs from "qs";
 import "./Map.scss";
+import { UserContext } from '../../../Data/Context/UserContext/UserContextProvider';
 
 const campusPanningOffsetX: number = 300;
 const campusPanningOffsetY: number = 400;
@@ -28,6 +29,7 @@ interface IState {
 }
 
 class Map extends Component<IProps, IState> {
+  static contextType = UserContext;
   canvasParentRef: any;
   canvasParent: any;
 
@@ -137,8 +139,12 @@ class Map extends Component<IProps, IState> {
   }
 
   componentDidMount = async () => {
+    if(this.context[0] === null) {
+      this.props.history.push('/login');
+    } else {
+      const {avatar} = this.context[0];
     this.images["campus"] = await this.loadImage("/images/unisabana-map.png");
-    this.images["avatar"] = await this.loadImage("/images/avatar.png");
+    this.images["avatar"] = await this.loadImage(`/images/${avatar.sexo}${avatar.skinColor}${avatar.hairColor}${avatar.hairStyle}.png`);
     this.images["location-icon"] = await this.loadImage("/images/Location_marker (1).png");
 
     this.canvasParent = this.canvasParentRef.current;
@@ -197,6 +203,7 @@ class Map extends Component<IProps, IState> {
     this.centerEvent("eventC");
 
     window.requestAnimationFrame(this.update);
+  }
   }
 
   setPath = () => {
@@ -300,8 +307,8 @@ class Map extends Component<IProps, IState> {
       this.images["avatar"], 
       this.state.positions["avatar"].x + this.coordinates.latitude + offsetX, 
       this.state.positions["avatar"].y + this.coordinates.longitude + offsetY, 
-      this.images["avatar"].width * 0.65, 
-      this.images["avatar"].height * 0.65
+      this.images["avatar"].width * 0.35, 
+      this.images["avatar"].height * 0.35
     );
 
     this.drawLocationPin(

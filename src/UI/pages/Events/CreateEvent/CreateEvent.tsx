@@ -39,7 +39,7 @@ const CreateEvent: React.FC = () => {
 
   const createEvent = () => {
     
-    const newTime = dayjs(time).format('HH:mma');
+    const newTime = dayjs(time).format('hh:mma');
     const newDate = dayjs(date).format('YYYY-MM-DD');
     const newEvent: CreatePeopleEventByInterestRequest = {
       interest: interest || '',

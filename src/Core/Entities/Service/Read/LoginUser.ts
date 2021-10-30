@@ -23,7 +23,7 @@ export interface Interest {
 }
 
 export interface Avatar {
-  id:        number;
+  id?:        number;
   sexo:      string;
   hairStyle: string;
   skinColor: string;
