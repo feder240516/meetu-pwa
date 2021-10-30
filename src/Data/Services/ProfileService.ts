@@ -10,6 +10,7 @@ export default function ProfileService () {
     const response = await AxiosServer.post<LoginUserResponse>(`/students/login`, {
       ...params
     });
+    console.log(response.data);
     return response.data;
   }
 

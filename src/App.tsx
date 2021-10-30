@@ -15,6 +15,7 @@ import BottomNav from './UI/components/BottomNav/BottomNav';
 import Login from './UI/pages/Login/Login';
 import Welcome from './UI/pages/Welcome/Welcome';
 import CreateAvatar from './UI/pages/CreateAvatar/CreateAvatar';
+import Profile from './UI/pages/Profile/Profile';
 import ViewEvents from './UI/pages/Events/ViewEvents/ViewEvents';
 import CreateEvent from './UI/pages/Events/CreateEvent/CreateEvent';
 import EventDetail from './UI/pages/Events/EventDetail/EventDetail';
@@ -96,6 +97,16 @@ class App extends Component {
             render={(props) => (
               <React.Fragment>
                 <CreateAvatar />
+              </React.Fragment>
+            )}
+          />
+        
+          <Route
+            exact
+            path="/profile"
+            render={(props) => (
+              <React.Fragment>
+                <Profile />
               </React.Fragment>
             )}
           />
