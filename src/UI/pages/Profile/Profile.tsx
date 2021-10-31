@@ -53,7 +53,7 @@ export default function App() {
             <ul>
                 {props.interests.map((interest: any, i: number) => 
                     <InterestItem 
-                        key={i}
+                        key={interest.id}
                         id={interest.id}
                         name={interest.name}
                         src={interest.src}
