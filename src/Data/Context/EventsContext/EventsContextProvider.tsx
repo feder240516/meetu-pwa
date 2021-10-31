@@ -3,15 +3,17 @@
 import React, { useContext, useState } from "react";
 import PeopleEvent from "../../../Core/Entities/PeopleEvent";
 
+export type EventsContextType = [
+  PeopleEvent[],
+  React.Dispatch<
+    React.SetStateAction<
+      PeopleEvent[]
+  >>
+]
 
 export const EventsContext = React.createContext<
-  [
-    PeopleEvent[],
-    React.Dispatch<
-      React.SetStateAction<
-        PeopleEvent[]
-    >>
-  ]>([[], () => []]);
+    EventsContextType
+  >([[], () => []]);
 
 const EventsContextProvider = ({ children }: any) => {
   const [events, setEvents] = useState<PeopleEvent[]>([]);

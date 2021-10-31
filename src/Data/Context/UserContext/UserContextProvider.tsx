@@ -3,15 +3,17 @@
 import React, { useContext, useState } from "react";
 import { LoginUserResponse } from "../../../Core/Entities/Service/Read/LoginUser";
 
+export type UserContextType = [
+  LoginUserResponse | null,
+  React.Dispatch<
+    React.SetStateAction<
+      LoginUserResponse | null
+  >>
+]
 
 export const UserContext = React.createContext<
-  [
-    LoginUserResponse | null,
-    React.Dispatch<
-      React.SetStateAction<
-        LoginUserResponse | null
-    >>
-  ]>([null, () => null]);
+    UserContextType
+  >([null, () => null]);
 
 const UserContextProvider = ({ children }: any) => {
   const [user, setUser] = useState<LoginUserResponse | null>(null);

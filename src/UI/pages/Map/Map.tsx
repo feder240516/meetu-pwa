@@ -3,7 +3,9 @@ import { withRouter } from "react-router-dom";
 import gsap from "gsap";
 import qs from "qs";
 import "./Map.scss";
-import { UserContext } from '../../../Data/Context/UserContext/UserContextProvider';
+import { UserContext, UserContextType } from '../../../Data/Context/UserContext/UserContextProvider';
+import { WithContextHOC } from '../../HOC/WithContextHOC';
+import { EventsContextType } from '../../../Data/Context/EventsContext/EventsContextProvider';
 
 const campusPanningOffsetX: number = 300;
 const campusPanningOffsetY: number = 400;
@@ -12,6 +14,8 @@ interface IProps {
   match: any;
   location: any;
   history: any;
+  userContextData: UserContextType;
+  eventsContextData: EventsContextType;
 }
 
 interface IState {
@@ -29,7 +33,7 @@ interface IState {
 }
 
 class Map extends Component<IProps, IState> {
-  static contextType = UserContext;
+  // static contextType = UserContext;
   canvasParentRef: any;
   canvasParent: any;
 
@@ -89,24 +93,24 @@ class Map extends Component<IProps, IState> {
   getLocationOfPlace = (place: string) => {
     const places: any = {
       "B Building": {
-        x: 120,
-        y: 80,
+        x: 380,
+        y: 310,
       },
       "C Building": {
-        x: 150,
-        y: 10,
+        x: 290,
+        y: 390,
       },
-      "Green Point": {
-        x: -120,
-        y: 30,
+      "Green point": {
+        x: 580,
+        y: 310,
       },
       "Restaurant": {
-        x: 160,
-        y: 800,
+        x: 760,
+        y: 600,
       },
       "Audiovisuals": {
-        x: -200,
-        y: 200,
+        x: 380,
+        y: 110,
       },
     }
     return places[place];
@@ -139,10 +143,10 @@ class Map extends Component<IProps, IState> {
   }
 
   componentDidMount = async () => {
-    if(this.context[0] === null) {
+    if(this.props.userContextData[0] === null) {
       this.props.history.push('/login');
     } else {
-      const {avatar} = this.context[0];
+      const {avatar} = this.props.userContextData[0];
     this.images["campus"] = await this.loadImage("/images/unisabana-map.png");
     this.images["avatar"] = await this.loadImage(`/images/${avatar.sexo}${avatar.skinColor}${avatar.hairColor}${avatar.hairStyle}.png`);
     this.images["location-icon"] = await this.loadImage("/images/Location_marker (1).png");
@@ -200,7 +204,7 @@ class Map extends Component<IProps, IState> {
       this.getPosition();
     }, 1000);*/
 
-    this.centerEvent("eventC");
+    this.centerEvent();
 
     window.requestAnimationFrame(this.update);
   }
@@ -229,7 +233,7 @@ class Map extends Component<IProps, IState> {
     this.setState({ campusOffsetX, campusOffsetY })
   }
 
-  centerEvent = (eventId: string) => {
+  centerEvent = () => {
     const { positions } = this.state;
 
     const parsedQuery = qs.parse(this.props.location.search.slice(1));
@@ -237,8 +241,8 @@ class Map extends Component<IProps, IState> {
     if (parsedQuery?.location) {
       const { x, y } = this.getLocationOfPlace(parsedQuery.location as string);
 
-      let offsetX = x - this.canvasMap.width / 2 + 10;
-      let offsetY = y - this.canvasMap.height / 2 + 40;
+      let offsetX = x - 530;
+      let offsetY = y - 365;
 
       const offsetAnimation = {
         offsetXAcc: 0,
@@ -311,32 +315,31 @@ class Map extends Component<IProps, IState> {
       this.images["avatar"].height * 0.35
     );
 
-    this.drawLocationPin(
-      "eventA",
-      this.state.positions["eventA"].x + offsetX,
-      this.state.positions["eventA"].y + offsetY,
-      110,
-      45,
-      "Evento A"
-    )
-
-    this.drawLocationPin(
-      "eventB",
-      this.state.positions["eventB"].x + offsetX,
-      this.state.positions["eventB"].y + offsetY,
-      110,
-      45,
-      "Evento B"
-    )
-
-    this.drawLocationPin(
-      "eventC",
-      this.state.positions["eventC"].x + offsetX,
-      this.state.positions["eventC"].y + offsetY,
-      110,
-      45,
-      "Evento C"
-    )
+    const eventBuildingsCounters: {[id: string]: any} = {}
+    // Draw events
+    this.props.eventsContextData[0].forEach(peopleEvent => {
+      // console.dir(peopleEvent);
+      const { id, name, place } = peopleEvent;
+      const coordsPlace = this.getLocationOfPlace(place);
+      let drawPin = false;
+      if (eventBuildingsCounters[place] !== undefined) {
+        eventBuildingsCounters[place]++;
+      } else {
+        drawPin = true;
+        eventBuildingsCounters[place] = 0;
+      }
+      if (coordsPlace) {
+        this.drawLocationPin(
+          id.toString(),
+          this.state.positions["campus"].x + coordsPlace.x + offsetX,
+          this.state.positions["campus"].y + coordsPlace.y + offsetY - eventBuildingsCounters[place] * 50,
+          110,
+          45,
+          name,
+          drawPin,
+        )
+      }
+    })
 
     this.animationLoop = window.requestAnimationFrame(this.update);
   }
@@ -394,14 +397,20 @@ class Map extends Component<IProps, IState> {
     this.ctx.fillText(text, x, y);
   }
 
-  drawLocationPin = (key: string, x: number, y: number, rectWidth: number, rectHeight: number, label: string) => {
-    this.drawImage(
-      this.images["location-icon"],
-      x,
-      y,
-      this.images["location-icon"].width * 0.1, 
-      this.images["location-icon"].height * 0.1
-    )
+  drawLocationPin = (key: string, x: number, y: number, rectWidth: number, rectHeight: number, label: string, drawPin: boolean = true) => {
+    if (drawPin) {
+      this.drawImage(
+        this.images["location-icon"],
+        x,
+        y,
+        this.images["location-icon"].width * 0.1, 
+        this.images["location-icon"].height * 0.1
+      )
+    }
+
+    const MAX_LABEL_LENGTH = 8;
+
+    label = label.length > MAX_LABEL_LENGTH ? label.substring(0, MAX_LABEL_LENGTH) + "..." : label;
 
     let rectX = x - (rectWidth/2) + (this.images["location-icon"].width * 0.1)/2;
     let rectY = y - 50;
@@ -422,17 +431,19 @@ class Map extends Component<IProps, IState> {
       label
     )
 
-    /*this.drawCollider(
+    this.drawCollider(
       rectX,
       rectY,
       rectWidth,
-      90,
-    );*/
+      rectHeight,
+    );
 
-    this.eventColliders[key].left = rectX;
-    this.eventColliders[key].top = rectY;
-    this.eventColliders[key].width = rectWidth;
-    this.eventColliders[key].height = 90;
+    this.eventColliders[key] = {
+      left: rectX,
+      top: rectY,
+      width: rectWidth,
+      height: rectHeight,
+    }
   }
 
   onClick = (e: any) => {
@@ -445,7 +456,7 @@ class Map extends Component<IProps, IState> {
       if(y > top && y < top + height && x > left && x < left + width) {
         console.log(`Clicked on collider ${colliderKey}`);
 
-        this.props.history.push("/groups");
+        this.props.history.push(`/events/${colliderKey}`);
       }
     })
   }
@@ -524,4 +535,4 @@ class Map extends Component<IProps, IState> {
   }
 }
 
-export default withRouter(Map);
+export default withRouter(WithContextHOC(Map));

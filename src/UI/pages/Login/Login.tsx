@@ -6,6 +6,10 @@ import Card from "../../components/Card/Card";
 import Input from "../../components/Input/Input";
 import "./Login.scss";
 import { Link } from "react-router-dom";
+// import useEvents from "../../hooks/useEvents";
+import EventsService from "../../../Data/Services/EventsService";
+import getPeopleEventMapper from "../../../Data/Mapper/getPeopleEventMapper";
+import { EventsContext } from "../../../Data/Context/EventsContext/EventsContextProvider";
 
 const routes = [
   {
@@ -15,7 +19,9 @@ const routes = [
 
 export default function Login() {
   const history = useHistory();
+  // const { reloadEvents } = useEvents();
   const [userProfile, setUserProfile] = useContext(UserContext);
+  const [allEvents, setAllEvents] = useContext(EventsContext);
   const { loginProfile } = ProfileService();
   const [mail, setMail] = useState(" ");
   const [pass, setPass] = useState(" ");
@@ -34,7 +40,18 @@ export default function Login() {
 
     }).then(profile => {
       setUserProfile(profile);
-      history.push("/")
+      const groupIDs = profile.groups.map(group => group.id);
+      const interests = profile.interests.map(interest => interest.name);
+      Promise.all([
+        EventsService().getEventsByGroup({groups:groupIDs}),
+        EventsService().getEventsByInterest({interests})
+      ]).then(([eventsByGroups, eventsByInterests]) => {
+        const groupEvents = eventsByGroups.data.map(event => getPeopleEventMapper(event))
+        const interestsEvents = eventsByInterests.data.map(event => getPeopleEventMapper(event))
+        setAllEvents([...groupEvents, ...interestsEvents]);
+        history.push("/")
+      })
+      // reloadEvents();
     }).catch(error => {
       setUserProfile({
         email: mail,
