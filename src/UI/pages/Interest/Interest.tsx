@@ -105,9 +105,7 @@ const Interest = (props: any) => {
     return (
         <div className="Interest">
             <div className="-title">
-                    <Link to="/interests">
-                        <img src="/images/arrow_back_ios_24px_outlined.svg"></img>
-                    </Link>
+            <img src="/images/arrow_back_ios_24px_outlined.svg" onClick={() => history.goBack()}></img>
                     <h1>{interest ? interest.name : null}</h1>
              </div>
             

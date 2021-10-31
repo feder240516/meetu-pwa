@@ -12,6 +12,7 @@ const ReactNotificationComponent = (props : any) => {
     </div>)
 
     toast(<Display />);
+    setTimeout(props.onHideNotification, 5000);
   }, [props.title, props.body])
 
   return (

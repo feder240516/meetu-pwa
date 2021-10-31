@@ -431,12 +431,12 @@ class Map extends Component<IProps, IState> {
       label
     )
 
-    this.drawCollider(
-      rectX,
-      rectY,
-      rectWidth,
-      rectHeight,
-    );
+    // this.drawCollider(
+    //   rectX,
+    //   rectY,
+    //   rectWidth,
+    //   rectHeight,
+    // );
 
     this.eventColliders[key] = {
       left: rectX,
@@ -526,10 +526,15 @@ class Map extends Component<IProps, IState> {
     }
   }
 
+  callSOS = () => {
+    this.props.history.push('/sos/create')
+  }
+
   render() {
     return (
       <div id="canvas-parent" ref={this.canvasParentRef}>
         <canvas id="canvas-map" ref={this.canvasMapRef}/>
+        <button className="sos-button" onClick={this.callSOS}>SOS</button>
       </div>
     );
   }
