@@ -53,7 +53,7 @@ export default function App() {
             <ul>
                 {props.interests.map((interest: any, i: number) => 
                     <InterestItem 
-                        key={i}
+                        key={interest.id}
                         id={interest.id}
                         name={interest.name}
                         src={interest.src}
@@ -102,7 +102,7 @@ export default function App() {
             </div>
             
           </div>
-          <div className="grid-6">
+          <div className="grid-6 status">
             <SelectInput
               label="Status"
               options={state}
