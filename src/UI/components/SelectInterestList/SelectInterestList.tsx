@@ -11,7 +11,7 @@ const SelectInterestList = (props: any) => {
                     props.interests.map((interest: any, i: number) => {
                             let isChecked = props.selectedInterests.includes(interest.id);
                             return (<SelectInterestItem 
-                                key={i}
+                                key={interest.id}
                                 id={interest.id}
                                 name={interest.name}
                                 src={interest.src}
