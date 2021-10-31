@@ -10,6 +10,9 @@ import { interests } from "../../../Data/Static/Interests";
 
 import { UserContext } from '../../../Data/Context/UserContext/UserContextProvider';
 import InterestsService from '../../../Data/Services/InterestsService';
+import EventsService from '../../../Data/Services/EventsService';
+import getPeopleEventMapper from '../../../Data/Mapper/getPeopleEventMapper';
+import { EventsContext } from '../../../Data/Context/EventsContext/EventsContextProvider';
 
 const SelectInterest = (props: any) => {
     const [search, setSearch] = useState("");
@@ -18,6 +21,7 @@ const SelectInterest = (props: any) => {
     const history = useHistory();
 
     const [ userProfile, setUserProfile ] = useContext(UserContext);
+    const [allEvents, setAllEvents] = useContext(EventsContext);
     const { setInterests } = InterestsService();
 
     const onChangeSearch = (e: any) => {
@@ -84,6 +88,16 @@ const SelectInterest = (props: any) => {
             )).data;
 
             setUserProfile(modifiedUser);
+            const newgroupIDs = modifiedUser.groups.map(group => group.id);
+            const newInterests = modifiedUser.interests.map(interest => interest.name);
+            const [eventsByGroups, eventsByInterests] = await Promise.all([
+                EventsService().getEventsByGroup({ groups: newgroupIDs }),
+                EventsService().getEventsByInterest({ interests: newInterests })
+            ])
+            const groupEvents = eventsByGroups.data.map(event => getPeopleEventMapper(event))
+            const interestsEvents = eventsByInterests.data.map(event => getPeopleEventMapper(event))
+            setAllEvents([...groupEvents, ...interestsEvents]);
+            
         }
     }
 

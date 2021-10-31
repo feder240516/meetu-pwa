@@ -8,7 +8,7 @@ export default function GroupsService () {
   async function setInterests(user: LoginUserResponse, interests: Interest[]) {
     if (interests.length === 0) {
       interests = [{
-        id: 0,
+        id: -1,
         name: '',
       }];
     }
@@ -34,7 +34,7 @@ export default function GroupsService () {
     const modifiedInterests = user.interests.filter(i => i.id !== interest.id);
     if (modifiedInterests.length === 0) {
       modifiedInterests.push({
-        id: 0,
+        id: -1,
         name: '',
       });
     }
