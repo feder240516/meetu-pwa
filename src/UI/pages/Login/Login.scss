@@ -24,4 +24,8 @@ button{
   font-family: 'Montserrat', sans-serif;
   font-size: x-large;
   margin-top: 1vh;
+  &:disabled {
+    background-color: #D8D8D8;
+    color: #000;
+  }
 }

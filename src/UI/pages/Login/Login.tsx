@@ -23,8 +23,8 @@ export default function Login() {
   const [userProfile, setUserProfile] = useContext(UserContext);
   const [allEvents, setAllEvents] = useContext(EventsContext);
   const { loginProfile } = ProfileService();
-  const [mail, setMail] = useState(" ");
-  const [pass, setPass] = useState(" ");
+  const [mail, setMail] = useState("");
+  const [pass, setPass] = useState("");
 
   const changeMail = (mail: string) => {
     setMail(mail);
@@ -77,10 +77,13 @@ export default function Login() {
           <Input id="login-email" label="Email" onChange={changeMail} ></Input>
           <Input id="login-password" label="Password" onChange={changePass} type="password"></Input>
        </div>
-        <Link to="/select-interest">Go to</Link>
+        {/* <Link to="/select-interest">Go to</Link> */}
       </Card>
       <img src="/images/friends.png"></img>
-      <button onClick={onLogin}>LOG IN</button>
+      <button 
+        disabled={!mail || !pass}
+        onClick={onLogin}
+      >LOG IN</button>
     </div>
   </>
 }

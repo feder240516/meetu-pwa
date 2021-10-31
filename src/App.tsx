@@ -22,6 +22,7 @@ import EventDetail from './UI/pages/Events/EventDetail/EventDetail';
 
 import ReactNotificationComponent from './notifications/ReactNotificationComponent';
 import { onMessageListener, getToken } from './firebaseInit';
+import CreateSOS from './UI/pages/CreateSOS/CreateSOS';
 
 class App extends Component {
   state = {
@@ -34,13 +35,7 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    this.setState({
-      show: true,
-      notification: {
-        title: "Notification Test",
-        body: "This is a notification"
-      }
-    })
+    
 
     /*await Notification.requestPermission();
     
@@ -62,6 +57,26 @@ class App extends Component {
       .catch((err: any) => console.log("failed: ", err));*/
   }
 
+  onCreateSOS() {
+    this.setState({
+      show: true,
+      notification: {
+        title: "SOS emergency",
+        body: "Your SOS emergency has been submitted"
+      }
+    })
+  }
+
+  onHideNotification() {
+    this.setState({
+      show: false,
+      notification: {
+        title: '',
+        body: '',
+      }
+    })
+  }
+
   render() {
     return (
       <Router>
@@ -70,6 +85,7 @@ class App extends Component {
             <ReactNotificationComponent
               title={this.state.notification.title}
               body={this.state.notification.body}
+              onHideNotification={this.onHideNotification.bind(this)}
             /> : null
         }
         <Switch>
@@ -121,6 +137,15 @@ class App extends Component {
                     render={(props) => (
                       <React.Fragment>
                         <Map />
+                      </React.Fragment>
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/sos/create"
+                    render={(props) => (
+                      <React.Fragment>
+                        <CreateSOS onCreateSOS={this.onCreateSOS.bind(this)}/>
                       </React.Fragment>
                     )}
                   />
