@@ -11,7 +11,7 @@ const SearchInput = (props: any) => {
                 <div className="icon-container">
                     <SearchIcon />
                 </div>
-                <input type="text" name="search" onChange={props.onChange}/>
+                <input autoComplete="nope" type="text" name="search" onChange={props.onChange}/>
                 <div className="icon-container">
                     <MicrophoneIcon />
                 </div>
