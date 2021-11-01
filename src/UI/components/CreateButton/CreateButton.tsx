@@ -13,8 +13,8 @@ const CreateButton: React.FC<IProps> = ({text, onClick}) => {
   return (
     <div className="create-button-component">
       <span className="create-button-label">{text}</span>
-      <button className="circle-button" onClick={handleClick}>
-        <i className="material-icons">add</i>
+      <button className="circle-button" style={{position: "relative"}} onClick={handleClick}>
+        <i className="material-icons" style={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>add</i>
       </button>
     </div>
   )

@@ -1,6 +1,8 @@
 @use '../../../styles/global.scss';
 
 .create-event-page {
+  height: 85vh;
+  overflow-y: auto;
   .create-event__header-wrapper {
     .create-event__header {
       margin: 18px 72px 18px 18px;
